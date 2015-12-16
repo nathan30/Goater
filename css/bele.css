@@ -1,0 +1,46 @@
+.goat-box {
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.1);
+    color:black;
+    width: 650px;
+    padding: 10px;
+}
+
+.goat-author {
+    font-size: 15px;
+}
+.goat-author a{
+    color:red;
+    font-size: 10px;
+}
+
+.blog-post-bottom a:link,
+.blog-post-bottom a:hover,
+.blog-post-bottom a:visited{
+    text-decoration: none;
+}
+
+.blog-post-bottom a{
+    cursor: pointer;
+    color:black;
+}
+a.like:hover{
+    color:red;
+}
+a.retweet:hover{
+    color:green;
+}
+.goat-bele-submit{
+    width: 100px;
+    display: block!important;
+    margin: auto!important;
+    margin-bottom: 10px!important;
+    box-shadow: 0;
+    transition: all .5s;
+}
+.goat-bele-submit:hover{
+    box-shadow: inset 0 0 3px #515151;
+}
