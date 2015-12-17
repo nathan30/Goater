@@ -1,9 +1,9 @@
 <?php
     class tweetmodel extends basemodel {
-        function getPost($id){
+        function getPost(){
             return postTable::getPostById($id);
         }
-        function getParent($id){
+        function getParent(){
             return utilisateurTable::getUserById($id);
         }
         function getLikes(){
