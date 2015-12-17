@@ -7,7 +7,12 @@
 <link rel="stylesheet" href="css/bele.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?php echo $context->title; ?></title>
+<title>
+    <?php
+        echo $context->title;
+        $avatar = context::getSessionAttribute("avatar");
+    ?>
+</title>
 
 </head>
 
@@ -33,7 +38,7 @@
                 <?php
                     if(context::getSessionAttribute("connect") == "true"){
                         echo '<div class="dropdown pull-right">
-                            <img src="images/ktm.jpg" class="dropdown-toggle goater-session" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="'.$avatar.'" class="dropdown-toggle goater-session" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 <li><a href="?action=view_profile&id=1">Modifier profil</a></li>
                                 <li><a href="?action=disconnect">Deconnexion</a></li>

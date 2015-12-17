@@ -33,3 +33,5 @@ Et dès l'entrée des ID et password on retombe sur https://pedago02a.univ-avignon
 
 
 TP6 : Les tests de toutes les classes sont à l'adresse suivante : https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/goater.php?action=test
+Ajout de la méthode getUserByPseudo($pseudo) afin de faire la view_profile avec le pseudo plutot que l'id
+La modification du profil se fait avec l'action edit=true

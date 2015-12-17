@@ -26,9 +26,18 @@ class mainController
         if(isset($_REQUEST['action'])){
             $context->action = $_REQUEST['action'];
             $context->title = "Profil";
-
             $id = context::getSessionAttribute("id");
             $usertab = new utilisateurmodel();
+            if(isset($_REQUEST["pseudo"])){
+                $context->pseudo_url = $_REQUEST["pseudo"];
+                $user = utilisateurTable::getUserByPseudo($context->pseudo_url);
+                $context->nom = $user[0]->nom;
+                $context->prenom = $user[0]->prenom;
+                $context->identifiant = $user[0]->identifiant;
+                $context->statut = $user[0]->statut;
+                $context->avatar = $user[0]->avatar;
+                $context->id_user = $user[0]->id;
+            }
             $user = utilisateurTable::getUserById($id);
             context::setSessionAttribute("id",$user[0]->id);
             context::setSessionAttribute("nom",$user[0]->nom);

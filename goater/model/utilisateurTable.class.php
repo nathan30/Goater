@@ -22,6 +22,15 @@ class utilisateurTable {
         return $res ;
     }
 
+    public static function getUserByPseudo($pseudo){
+        $connection = new dbconnection();
+        $sql = "select * from jabaianb.utilisateur where identifiant='".$pseudo."'";
+        $res = $connection->doQueryObject($sql,'utilisateurmodel');
+        if($res === false)
+          return false ;
+        return $res ;
+    }
+
     public static function getUsers(){
         $connection = new dbconnection();
         $sql = "select * from jabaianb.utilisateur";
