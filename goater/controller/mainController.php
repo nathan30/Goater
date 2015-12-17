@@ -23,6 +23,14 @@ class mainController
 		return context::SUCCESS;
 	}
     public static function view_profile($request,$context){
+        if(context::getSessionAttribute("connect") != "true"){
+            if($_REQUEST['id'] == 1){
+                header('Location:goater.php?action=login&redirect=view_profile&id=1');
+            }
+            else{
+                header('Location:goater.php?action=login');
+            }
+        }
         if(isset($_REQUEST['action'])){
             $context->action = $_REQUEST['action'];
             $context->title = "Profil";

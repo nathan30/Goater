@@ -1,14 +1,4 @@
 <?php
-
-    if(context::getSessionAttribute("connect") != "true"){
-        if($id == 1){
-            header('Location:goater.php?action=login&redirect=view_profile&id=1');
-        }
-        else{
-            header('Location:goater.php?action=login');
-        }
-    }
-
 // <!-- ********** GOATER - RETRIEVE DATA ********** -->
     $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1'); //L3 pour O1a et etd pour 00c
     if(isset($_REQUEST["pseudo"])){
@@ -30,7 +20,6 @@
         $avatar = context::getSessionAttribute("avatar");
         $id_user = context::getSessionAttribute("id");
     }
-
     $nb_tweet = $bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$id_user")->fetchColumn();
 
 // <!-- ********** END GOATER - RETRIEVE DATA ********** -->
@@ -59,14 +48,11 @@
                         </p>
                         <?php
                             if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" ){
-                                echo"<form action='?action=view_profile&id=1' method='POST'>
-                                        <textarea name='statut_update' rows='4' class='form-control' maxlength='160' style='resize:none'></textarea>
-                                        <input type='submit'>
-                                    </form>";
+                                echo"<textarea name='statut_update' rows='4' class='form-control' maxlength='100' style='resize:none'></textarea>
+                                    <input type='submit'>";
                                 if(isset($_POST["statut_update"])){
-                                    $connection = new dbconnection();
                                     $statut_update=$_POST["statut_update"];
-                                    $update = $connection -> doQuery("UPDATE jabaianb.utilisateur set statut='$statut_update' where id='$id_user'");
+                                    $update = $bdd -> query("UPDATE jabaianb.utilisateur set statut='$statut_update' where id='$id_user'");
                                 }
                             }
                         ?>

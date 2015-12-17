@@ -40,7 +40,7 @@
                         echo '<div class="dropdown pull-right">
                             <img src="'.$avatar.'" class="dropdown-toggle goater-session" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <li><a href="?action=view_profile&id=1">Modifier profil</a></li>
+                                <li><a href="?action=view_profile&edit=true">Modifier profil</a></li>
                                 <li><a href="?action=disconnect">Deconnexion</a></li>
                             </ul>
                         </div>';
