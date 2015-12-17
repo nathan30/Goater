@@ -18,6 +18,7 @@
     $identifiant = context::getSessionAttribute("identifiant");
     $statut = context::getSessionAttribute("statut");
     $avatar = context::getSessionAttribute("avatar");
+    $id_user = context::getSessionAttribute("id");
 
 // <!-- ********** END GOATER - RETRIEVE DATA ********** -->
 
@@ -30,29 +31,33 @@
                 <div class="col-sm-12">
                     <div class="col-xs-12 col-sm-8">
                         <h2>
-                            Cheval Nathan
+                            <?php
+                                echo "$nom $prenom";
+                            ?>
                         </h2>
-                        <p><strong>Pseudo: </strong>@nathan30</p>
+                        <p><strong>Pseudo: </strong><?php echo "@$identifiant"?></p>
                         <?php
                             if(!isset($_POST["statut"])){
-                                $statut = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam imperdiet ipsum ut elit tincidunt hendrerit. Nulla in ante pretium cras amet.";
-                            }
-                            else{
-                                $statut = $_POST["statut"];
+
                             }
                         ?>
-                            <p><strong>Statut: </strong>
-                                <?php echo $statut?>
-                            </p>
-                            <?php
+                        <p><strong>Statut: </strong>
+                            <?php echo $statut?>
+                        </p>
+                        <?php
                             if(isset($_REQUEST["id"])){
                                 $id = $_REQUEST["id"];
                                 if($id == 1){
                                     echo"<form action='?action=view_profile&id=1' method='POST'>
-                                        <textarea name='statut' rows='4' class='form-control' maxlength='140' style='resize:none'>$statut</textarea>
+                                        <textarea name='statut_update' rows='4' class='form-control' maxlength='160' style='resize:none'>$statut</textarea>
                                         <input type='submit'>
                                     </form>";
                                 }
+                            }
+                            if(isset($_POST["statut_update"])){
+                                $statut_update=$_POST["statut_update"];
+                                $connection = new dbconnection() ;
+                                $update = $connection -> doQuery("UPDATE jabaianb.utilisateur set statut='$statut_update' where id='$id_user'");
                             }
                         ?>
                     </div>
@@ -78,7 +83,7 @@
                     if(isset($_REQUEST["id"])){
                         $id = $_REQUEST["id"];
                         if($id != 1){
-                            $tweet = "@nathan30";
+                            $tweet = "@$identifiant ";
                         }
                     }
                 ?>

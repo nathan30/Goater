@@ -168,7 +168,7 @@
                                                 // ********** END GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
                                                 // ********** GOATER - LOGIN AND REGISTER - PHP - ADD IN DATABASE **********
                                                 if($uploadOk == 1){
-                                                   $req = $bdd->prepare('INSERT INTO jabaianb.utilisateur(identifiant, pass, nom,prenom,avatar) VALUES(:identifiant, :pass, :nom,:prenom,:avatar)')
+                                                    $req = $bdd->prepare('INSERT INTO jabaianb.utilisateur(identifiant, pass, nom,prenom,avatar) VALUES(:identifiant, :pass, :nom,:prenom,:avatar)')
                                                     or exit(print_r($bdd->errorInfo()));
                                                     $req->execute(array(
                                                         'identifiant' => $login,

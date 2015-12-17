@@ -30,6 +30,7 @@ class mainController
             $id = context::getSessionAttribute("id");
             $usertab = new utilisateurmodel();
             $user = utilisateurTable::getUserById($id);
+            context::setSessionAttribute("id",$user[0]->id);
             context::setSessionAttribute("nom",$user[0]->nom);
             context::setSessionAttribute("prenom",$user[0]->prenom);
             context::setSessionAttribute("identifiant",$user[0]->identifiant);

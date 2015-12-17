@@ -1,7 +1,7 @@
 <?php
     // ********** GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
-    $target_dir = "images/avatar/";
-    $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
+    $target_dir = "mvc/images/avatar/";
+    $target_file = "https://pedago02a.univ-avignon.fr/~uapv1402577/".$target_dir . basename($_FILES["avatar"]["name"]);
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     if(isset($_POST["register-submit"])){
