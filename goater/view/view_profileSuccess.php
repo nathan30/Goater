@@ -7,7 +7,7 @@
         $identifiant = $context->identifiant;
         $statut = $context->statut;
         $avatar = $context->avatar;
-        if($avatar == ""){
+        if($avatar == "" || file_exists($avatar) != true){
             $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
         }
         $id_user = $context->id_user;
@@ -86,14 +86,12 @@
                         $nom_emetteur = $pseud_emetteur[0]->nom;
                         $prenom_emetteur = $pseud_emetteur[0]->prenom;
                     $parent = $goat -> parent;
-                    $post = $goat -> post;
-                        $pos_emetteur = postTable::getPostById($post);
-                        $post_emetteur = $pos_emetteur[0]->texte;
-                    $nbvote = $goat -> nbvotes;
+                    $post_emetteur = $goat->getPost();
+                    $nbvote = $goat -> getLikes();
             ?>
                     <blockquote class="goat-box">
                         <p class="goat-text">
-                            <?php echo $post_emetteur; ?>
+                            <?php echo $post_emetteur[0] -> texte ?>
                         </p>
                         <hr>
                         <div class="blog-post-actions">
@@ -103,8 +101,6 @@
                             <p class="blog-post-bottom pull-right">
                                 <span class="badge quote-badge"><?php echo $nbvote ?></span>
                                 <a class="like glyphicon glyphicon-heart"></a>
-                                <span class="badge quote-badge">2</span>
-                                <a class="retweet glyphicon glyphicon-retweet"></a>
                             </p>
                         </div>
                     </blockquote>

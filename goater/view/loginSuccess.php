@@ -164,7 +164,7 @@
                                                 $login = $_POST["login"];
                                                 $password = sha1($_POST["password"]);
                                                 // ********** GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
-                                                include 'upload_image.php';
+                                                include 'goater/tools/upload_image.php';
                                                 // ********** END GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
                                                 // ********** GOATER - LOGIN AND REGISTER - PHP - ADD IN DATABASE **********
                                                 if($uploadOk == 1){
