@@ -15,13 +15,24 @@ class mainController
         }
         return context::SUCCESS;
     }
+
 	public static function index($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
-            $context->title = "Index";
-        }
+        $context->title = "Index";
+
+        $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
+        $id = context::getSessionAttribute("id");
+        $user = utilisateurTable::getUserById($id)[0];
+        context::setSessionAttribute("id",$user->id);
+        context::setSessionAttribute("nom",$user->nom);
+        context::setSessionAttribute("prenom",$user->prenom);
+        context::setSessionAttribute("identifiant",$user->identifiant);
+        context::setSessionAttribute("statut",$user->statut);
+        context::setSessionAttribute("avatar",$user->avatar);
+        context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
+
 		return context::SUCCESS;
 	}
+
     public static function view_profile($request,$context){
         if(context::getSessionAttribute("connect") != "true"){
             if($_REQUEST['id'] == 1){
@@ -51,16 +62,9 @@ class mainController
                 $context->avatar = $user->avatar;
                 $context->id_user = $user->id;
                 $context->nb_tweet = $bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn();
+
             }
             else{
-                $user = utilisateurTable::getUserById($id)[0];
-                context::setSessionAttribute("id",$user->id);
-                context::setSessionAttribute("nom",$user->nom);
-                context::setSessionAttribute("prenom",$user->prenom);
-                context::setSessionAttribute("identifiant",$user->identifiant);
-                context::setSessionAttribute("statut",$user->statut);
-                context::setSessionAttribute("avatar",$user->avatar);
-                context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
                 if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" ){
                     if(isset($_POST["statut_update"])){
                         $statut_update = $_POST["statut_update"];
