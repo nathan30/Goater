@@ -16,7 +16,7 @@ class utilisateurTable {
     public static function getUserById($id){
         $connection = new dbconnection();
         $sql = "select * from jabaianb.utilisateur where id='".$id."'";
-        $res = $connection->doQueryObject($sql,'utilisateurmodel');
+        $res = $connection->doQueryObject($sql,'utilisateur');
         if($res === false)
           return false ;
         return $res ;
@@ -25,7 +25,7 @@ class utilisateurTable {
     public static function getUserByPseudo($pseudo){
         $connection = new dbconnection();
         $sql = "select * from jabaianb.utilisateur where identifiant='".$pseudo."'";
-        $res = $connection->doQueryObject($sql,'utilisateurmodel');
+        $res = $connection->doQueryObject($sql,'utilisateur');
         if($res === false)
           return false ;
         return $res ;
@@ -34,7 +34,7 @@ class utilisateurTable {
     public static function getUsers(){
         $connection = new dbconnection();
         $sql = "select * from jabaianb.utilisateur";
-        $res = $connection->doQueryObject($sql,'utilisateurmodel');
+        $res = $connection->doQueryObject($sql,'utilisateur');
         if($res === false)
           return false ;
         return $res ;

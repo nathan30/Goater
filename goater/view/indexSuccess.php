@@ -3,6 +3,15 @@
         header('Location:?action=login');
     }
     else{
+        $nom = context::getSessionAttribute("nom");
+        $prenom = context::getSessionAttribute("prenom");
+        $identifiant = context::getSessionAttribute("identifiant");
+        $statut = context::getSessionAttribute("statut");
+        $avatar = context::getSessionAttribute("avatar");
+        if($avatar == "" || file_exists($avatar) != true){
+            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
+        }
+        $id_user = context::getSessionAttribute("id");
 
 ?>
 <body>
@@ -14,7 +23,7 @@
                 </a>
                 <div class="goater-pseudo">
                     <p class="nom">
-                        Nathan
+                        <?php echo"$nom $prenom";?>
                     </p>
                     <p class="pseudo">
                         @chwal84

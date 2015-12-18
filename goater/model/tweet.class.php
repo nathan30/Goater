@@ -1,10 +1,10 @@
 <?php
-    class tweetmodel extends basemodel {
+    class tweet extends basemodel {
         function getPost(){
             return postTable::getPostById($this->post);
         }
         function getParent(){
-            return $this->parent;
+            return utilisateurTable::getUserById($this->parent);
         }
         function getLikes(){
             return $this->nbvotes;

@@ -1,6 +1,5 @@
 <?php
 // <!-- ********** GOATER - RETRIEVE DATA ********** -->
-    $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1'); //L3 pour O1a et etd pour 00c
     if(isset($_REQUEST["pseudo"])){
         $nom = $context->nom;
         $prenom = $context->prenom;
@@ -11,6 +10,7 @@
             $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
         }
         $id_user = $context->id_user;
+
     }
     else{
         $nom = context::getSessionAttribute("nom");
@@ -18,9 +18,12 @@
         $identifiant = context::getSessionAttribute("identifiant");
         $statut = context::getSessionAttribute("statut");
         $avatar = context::getSessionAttribute("avatar");
+        if($avatar == "" || file_exists($avatar) != true){
+            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
+        }
         $id_user = context::getSessionAttribute("id");
+        $nb_tweet = context::getSessionAttribute("nb_tweet");
     }
-    $nb_tweet = $bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$id_user")->fetchColumn();
 
 // <!-- ********** END GOATER - RETRIEVE DATA ********** -->
 
@@ -44,16 +47,14 @@
                             }
                         ?>
                         <p><strong>Statut: </strong>
-                            <?php echo $statut?>
+                            <?php echo $statut;?>
                         </p>
                         <?php
                             if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" ){
-                                echo"<textarea name='statut_update' rows='4' class='form-control' maxlength='100' style='resize:none'></textarea>
-                                    <input type='submit'>";
-                                if(isset($_POST["statut_update"])){
-                                    $statut_update=$_POST["statut_update"];
-                                    $update = $bdd -> query("UPDATE jabaianb.utilisateur set statut='$statut_update' where id='$id_user'");
-                                }
+                               echo"<form action='?action=view_profile&edit=true' method='POST'>
+                                        <textarea name='statut_update' rows='4' class='form-control' maxlength='100' style='resize:none'></textarea>
+                                        <input type='submit'>
+                                    </form>";
                             }
                         ?>
                     </div>

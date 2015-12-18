@@ -35,24 +35,41 @@ class mainController
             $context->action = $_REQUEST['action'];
             $context->title = "Profil";
             $id = context::getSessionAttribute("id");
-            $usertab = new utilisateurmodel();
+            $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
             if(isset($_REQUEST["pseudo"])){
+                if(utilisateurTable::getUserByPseudo($_REQUEST["pseudo"]) == false){
+                    echo '<script language="javascript" type="text/javascript">
+                            window.location.replace("goater.php?action=erreur_404");
+                          </script>';
+                }
                 $context->pseudo_url = $_REQUEST["pseudo"];
-                $user = utilisateurTable::getUserByPseudo($context->pseudo_url);
-                $context->nom = $user[0]->nom;
-                $context->prenom = $user[0]->prenom;
-                $context->identifiant = $user[0]->identifiant;
-                $context->statut = $user[0]->statut;
-                $context->avatar = $user[0]->avatar;
-                $context->id_user = $user[0]->id;
+                $user = utilisateurTable::getUserByPseudo($context->pseudo_url)[0];
+                $context->nom = $user->nom;
+                $context->prenom = $user->prenom;
+                $context->identifiant = $user->identifiant;
+                $context->statut = $user->statut;
+                $context->avatar = $user->avatar;
+                $context->id_user = $user->id;
+                $context->nb_tweet = $bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn();
             }
-            $user = utilisateurTable::getUserById($id);
-            context::setSessionAttribute("id",$user[0]->id);
-            context::setSessionAttribute("nom",$user[0]->nom);
-            context::setSessionAttribute("prenom",$user[0]->prenom);
-            context::setSessionAttribute("identifiant",$user[0]->identifiant);
-            context::setSessionAttribute("statut",$user[0]->statut);
-            context::setSessionAttribute("avatar",$user[0]->avatar);
+            else{
+                $user = utilisateurTable::getUserById($id)[0];
+                context::setSessionAttribute("id",$user->id);
+                context::setSessionAttribute("nom",$user->nom);
+                context::setSessionAttribute("prenom",$user->prenom);
+                context::setSessionAttribute("identifiant",$user->identifiant);
+                context::setSessionAttribute("statut",$user->statut);
+                context::setSessionAttribute("avatar",$user->avatar);
+                context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
+                if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" ){
+                    if(isset($_POST["statut_update"])){
+                        $statut_update = $_POST["statut_update"];
+                        $user -> statut = $statut_update;
+                        $user -> save();
+                    }
+                }
+            }
+
         }
 		return context::SUCCESS;
 	}
@@ -77,10 +94,10 @@ class mainController
         }
 		return context::SUCCESS;
 	}
-    public static function test($requet,$context){
+    public static function erreur_404($requet,$context){
         if(isset($_REQUEST['action'])){
             $context->action = $_REQUEST['action'];
-            $context->title = "Test";
+            $context->title = "Erreur 404";
         }
         return context::SUCCESS;
     }

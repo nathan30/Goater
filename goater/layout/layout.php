@@ -11,6 +11,9 @@
     <?php
         echo $context->title;
         $avatar = context::getSessionAttribute("avatar");
+        if($avatar == "" || file_exists($avatar) != true){
+            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
+        }
     ?>
 </title>
 
@@ -41,6 +44,7 @@
                             <img src="'.$avatar.'" class="dropdown-toggle goater-session" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 <li><a href="?action=view_profile&edit=true">Modifier profil</a></li>
+                                <li><a href="?action=view_profile">Voir votre profil</a></li>
                                 <li><a href="?action=disconnect">Deconnexion</a></li>
                             </ul>
                         </div>';
