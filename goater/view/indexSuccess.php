@@ -12,13 +12,14 @@
             $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
         }
         $id_user = context::getSessionAttribute("id");
+        $nb_tweet = context::getSessionAttribute("nb_tweet");
 
 ?>
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 goater-user-left">
-                <a class="image-cover">
+                <a class="image-cover" style="background-image: url(<?php echo $avatar?>);">
 
                 </a>
                 <div class="goater-pseudo">
@@ -33,7 +34,7 @@
                     <ul class="goater-stats">
                         <li>
                             <span class="stats-label block">Bêles</span>
-                            <span class="stats-val">1000</span>
+                            <span class="stats-val"><?php echo $nb_tweet ?></span>
                         </li>
                     </ul>
                 </div>
