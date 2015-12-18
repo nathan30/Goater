@@ -44,18 +44,17 @@
                     <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?"></textarea>
                     <input class="btn primary-btn goat-bele-submit" type="submit" value="Bêler">
                 </form>
+
+                <?php
+                    include 'goater/view/beleSuccess.php';
+                    include 'goater/view/beleSuccess.php';
+                    include 'goater/view/beleSuccess.php';
+                ?>
             </div>
             <div class="col-sm-3 user-list-index">
                 <h3>Liste des utilisateurs</h3>
                 <?php
                     include 'goater/view/liste_userSuccess.php';
-                ?>
-            </div>
-            <div class="col-sm-6">
-                <?php
-                    include 'goater/view/beleSuccess.php';
-                    include 'goater/view/beleSuccess.php';
-                    include 'goater/view/beleSuccess.php';
                 ?>
             </div>
         </div>

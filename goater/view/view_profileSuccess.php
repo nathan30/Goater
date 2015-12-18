@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 text-center">
                         <object data=<?php echo $avatar ?> type="image/png" class="img-responsive">
-                            <img src='https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png' alt='photo default' width='100' height='100'/>
+                            <img src='https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png' alt='photo default' class="img-responsive"/>
                         </object>
                     </div>
                 </div>
