@@ -6,11 +6,8 @@
         $identifiant = $context->identifiant;
         $statut = $context->statut;
         $avatar = $context->avatar;
-        if($avatar == "" || file_exists($avatar) != true){
-            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
-        }
         $id_user = $context->id_user;
-
+        $nb_tweet = $context -> nb_tweet;
     }
     else{
         $nom = context::getSessionAttribute("nom");
@@ -18,13 +15,9 @@
         $identifiant = context::getSessionAttribute("identifiant");
         $statut = context::getSessionAttribute("statut");
         $avatar = context::getSessionAttribute("avatar");
-        if($avatar == "" || file_exists($avatar) != true){
-            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
-        }
         $id_user = context::getSessionAttribute("id");
         $nb_tweet = context::getSessionAttribute("nb_tweet");
     }
-
 // <!-- ********** END GOATER - RETRIEVE DATA ********** -->
 
 ?>
@@ -59,7 +52,9 @@
                         ?>
                     </div>
                     <div class="col-xs-12 col-sm-4 text-center">
-                        <img src="<?php echo $avatar ?>" class="img-responsive">
+                        <object data=<?php echo $avatar ?> type="image/png" class="img-responsive">
+                            <img src='https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png' alt='photo default' width='100' height='100'/>
+                        </object>
                     </div>
                 </div>
                 <div class="col-xs-12 divider text-center">
@@ -97,7 +92,7 @@
                         <hr>
                         <div class="blog-post-actions">
                             <p class="goat-author blog-post-bottom pull-left">
-                                <?php echo "$prenom_emetteur $nom_emetteur " ?><a href="?action=view_profile&pseudo=<?php echo $pseudo_emetteur ?>""><?php echo "@$pseudo_emetteur" ?></a>
+                                <?php echo "$prenom_emetteur $nom_emetteur " ?><a href="?action=view_profile&pseudo=<?php echo $pseudo_emetteur ?>" target="_blank"><?php echo "@$pseudo_emetteur" ?></a>
                             </p>
                             <p class="blog-post-bottom pull-right">
                                 <span class="badge quote-badge"><?php echo $nbvote ?></span>

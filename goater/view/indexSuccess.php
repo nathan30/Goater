@@ -26,7 +26,7 @@
                         <?php echo"$nom $prenom";?>
                     </p>
                     <p class="pseudo">
-                        @chwal84
+                        <a href="?action=view_profile&pseudo=<?php echo $identifiant ?>" target="_blank"><?php echo "@$identifiant" ?></a>
                     </p>
                 </div>
                 <div class="goater-infos">
@@ -34,10 +34,6 @@
                         <li>
                             <span class="stats-label block">Bêles</span>
                             <span class="stats-val">1000</span>
-                        </li>
-                        <li>
-                            <span class="stats-label block moutons">Moutons</span>
-                            <span class="stats-val moutons">1000</span>
                         </li>
                     </ul>
                 </div>

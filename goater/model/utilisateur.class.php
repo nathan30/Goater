@@ -2,4 +2,3 @@
     class utilisateur extends basemodel {
 
     }
-?>
