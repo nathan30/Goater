@@ -62,14 +62,34 @@ class mainController
                 $context->avatar = $user->avatar;
                 $context->id_user = $user->id;
                 $context->nb_tweet = $bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn();
-
             }
             else{
-                if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" ){
-                    if(isset($_POST["statut_update"])){
+                $user = utilisateurTable::getUserById($id)[0];
+                context::setSessionAttribute("id",$user->id);
+                context::setSessionAttribute("nom",$user->nom);
+                context::setSessionAttribute("prenom",$user->prenom);
+                context::setSessionAttribute("identifiant",$user->identifiant);
+                context::setSessionAttribute("statut",$user->statut);
+                context::setSessionAttribute("avatar",$user->avatar);
+                context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
+                if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
+                    if(isset($_POST["statut_update"]) && isset($_POST["nom_update"]) && isset($_POST["prenom_update"])){
                         $statut_update = $_POST["statut_update"];
+                        $prenom_update = $_POST["prenom_update"];
+                        $nom_update = $_POST["nom_update"];
+                            include 'goater/tools/upload_image.php';
+                            if($uploadOk == 1){
+                                $user -> avatar = $target_file;
+                            }
+
                         $user -> statut = $statut_update;
+                        $user -> prenom = $prenom_update;
+                        $user -> nom = $nom_update;
                         $user -> save();
+
+                         echo '<script language="javascript" type="text/javascript">
+                            window.location.replace("?action=view_profile");
+                          </script>';
                     }
                 }
             }

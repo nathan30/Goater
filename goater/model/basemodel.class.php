@@ -2,7 +2,7 @@
 
 abstract class basemodel {
 
-    protected $data; //Tableau associatif global
+    public $data; //Tableau associatif global
 
     function __construct($array = null){ //Constructeur avec argument facultatif
         if(is_array($array)){ // Verification du tableau
