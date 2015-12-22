@@ -44,3 +44,16 @@ a.retweet:hover{
 .goat-bele-submit:hover{
     box-shadow: inset 0 0 3px #515151;
 }
+
+.goat-post img{
+    display: block;
+    margin: auto;
+}
+
+.goat-time{
+    color:black;
+    font-size: 10px;
+    margin-top: 20px;
+    display: block;
+    margin-bottom: -20px;
+}

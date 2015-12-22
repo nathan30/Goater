@@ -1,0 +1,60 @@
+<?php
+    $tweet = $context -> tweet_share;
+    $id = $tweet[0] -> id;
+    $post_emetteur = $tweet[0] -> getPost();
+        $parent_info = utilisateurTable::getUserById($tweet[0] -> getParent());
+        $post_image = $post_emetteur[0] -> image;
+        if($post_image != "" && !file_exists($post_image)){
+            $post_image = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/goat.png";
+        }
+        if(isset($parent_info[0])){
+            $pseudo_parent = $parent_info[0] -> identifiant;
+            $prenom_parent = $parent_info[0] -> prenom;
+            $nom_parent = $parent_info[0] -> nom;
+            $avatar_parent = $parent_info[0] -> avatar;
+
+            if (strpos($avatar_parent,'http') !== false) $check = true;
+            else $check_image = false;
+
+            if($avatar_parent == "" || !file_exists($avatar_parent)){
+                if($check_image == false) $avatar_parent = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
+            }
+            $check = true;
+        }
+        else $check = false;
+        $nbvote = $tweet[0] -> getLikes();
+
+?>
+<blockquote class="goat-box">
+    <p class="pull-right">
+        <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+    </p>
+   <div class="goat-post">
+        <p class="goat-text">
+            <?php echo $post_emetteur[0] -> texte ?>
+        </p>
+        <img src="<?php echo $post_image; ?>" class="img-responsive">
+    </div>
+    <hr>
+    <div class = "user">
+        <?php
+            if($check) echo "<img src='$avatar_parent' class='img-responsive'>";
+        ?>
+        <p class="goat-author blog-post-bottom pull-left">
+
+            <?php
+                if($check) echo "$prenom_parent $nom_parent";
+                else echo "Utilisateur introuvable";
+            ?>
+            <a href="?action=view_profile&pseudo=<?php echo $pseudo_parent?>" target="_blank">
+                <?php
+                    if($check) echo "@$pseudo_parent";
+                ?>
+            </a>
+        </p>
+        <p class="blog-post-bottom pull-right">
+            <span class="badge quote-badge"><?php echo $nbvote ?></span>
+            <a class="like glyphicon glyphicon-heart"></a>
+        </p>
+    </div>
+</blockquote>

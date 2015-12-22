@@ -14,15 +14,13 @@
             }
             if($avatar == "" || !file_exists($avatar)){
                 if($check == false){
-                    $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
+                    $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
                 }
             }
     ?>
         <div class="liste_user">
             <div class="liste_image">
-                <object data=<?php echo $avatar ?> type="image/png" width="150" height="150">
-                    <img src='https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png' alt='photo default' width="150" height="150"/>
-                </object>
+                <img src='<?php echo $avatar ?>' class="img-responsive" />
             </div>
             <div class="liste_info">
                 <strong><?php echo "$nom $prenom"; ?></strong><br>

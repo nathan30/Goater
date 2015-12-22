@@ -12,7 +12,7 @@
         echo $context->title;
         $avatar = context::getSessionAttribute("avatar");
         if($avatar == "" || file_exists($avatar) != true){
-            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
+            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
         }
     ?>
 </title>

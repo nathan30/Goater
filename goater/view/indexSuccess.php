@@ -1,19 +1,14 @@
 <?php
-    if(context::getSessionAttribute("connect") != "true"){
-        header('Location:?action=login');
+    $nom = context::getSessionAttribute("nom");
+    $prenom = context::getSessionAttribute("prenom");
+    $identifiant = context::getSessionAttribute("identifiant");
+    $statut = context::getSessionAttribute("statut");
+    $avatar = context::getSessionAttribute("avatar");
+    if($avatar == "" || file_exists($avatar) != true){
+        $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
     }
-    else{
-        $nom = context::getSessionAttribute("nom");
-        $prenom = context::getSessionAttribute("prenom");
-        $identifiant = context::getSessionAttribute("identifiant");
-        $statut = context::getSessionAttribute("statut");
-        $avatar = context::getSessionAttribute("avatar");
-        if($avatar == "" || file_exists($avatar) != true){
-            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
-        }
-        $id_user = context::getSessionAttribute("id");
-        $nb_tweet = context::getSessionAttribute("nb_tweet");
-
+    $id_user = context::getSessionAttribute("id");
+    $nb_tweet = context::getSessionAttribute("nb_tweet");
 ?>
 <body>
     <div class="container-fluid">
@@ -40,8 +35,9 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <form action="#" method="POST">
+                <form action="goater.php" method="POST" enctype="multipart/form-data">
                     <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?"></textarea>
+                    <input type="file" name="avatar">
                     <input class="btn primary-btn goat-bele-submit" type="submit" value="Bêler">
                     <?php
                         if(isset($_POST["tweet"])){
@@ -52,23 +48,24 @@
                 <?php
                     $goat_list = tweetTable::getTweets();
                     foreach($goat_list as $goat){
+                        $id = $goat -> id;
                         $parent_info = utilisateurTable::getUserById($goat -> getParent());
                         $post_emetteur = $goat->getPost();
+                        $post_image = $post_emetteur[0] -> image;
+                        if($post_image != "" && !file_exists($post_image)){
+                            $post_image = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/goat.png";
+                        }
                         if(isset($parent_info[0])){
                             $pseudo_parent = $parent_info[0] -> identifiant;
                             $prenom_parent = $parent_info[0] -> prenom;
                             $nom_parent = $parent_info[0] -> nom;
                             $avatar_parent = $parent_info[0] -> avatar;
-                            if (strpos($avatar_parent,'http') !== false) {
-                                $check = true;
-                            }
-                            else{
-                                $check = false;
-                            }
+
+                            if (strpos($avatar_parent,'http') !== false) $check = true;
+                            else $check_image = false;
+
                             if($avatar_parent == "" || !file_exists($avatar_parent)){
-                                if($check == false){
-                                    $avatar_parent = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
-                                }
+                                if($check_image == false) $avatar_parent = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
                             }
                             $check = true;
                         }
@@ -76,28 +73,25 @@
                         $nbvote = $goat -> getLikes();
                     ?>
                     <blockquote class="goat-box">
-                        <p class="goat-text">
-                            <?php
-                                echo $post_emetteur[0] -> texte;
-                            ?>
+                        <p class="pull-right">
+                            <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
                         </p>
+                       <div class="goat-post">
+                            <p class="goat-text">
+                                <?php echo $post_emetteur[0] -> texte ?>
+                            </p>
+                            <img src="<?php echo $post_image; ?>" class="img-responsive">
+                        </div>
                         <hr>
                         <div class = "user">
                             <?php
-                                if($check){
-                                    echo "<img src='$avatar_parent' class='img-responsive'>";
-                                }
+                                if($check) echo "<img src='$avatar_parent' class='img-responsive'>";
                             ?>
                             <p class="goat-author blog-post-bottom pull-left">
 
                                 <?php
-                                    if($check){
-                                        echo "$prenom_parent $nom_parent ";
-                                    }
-                                    else{
-                                        echo "Utilisateur introuvable";
-                                    }
-
+                                    if($check) echo "$prenom_parent $nom_parent";
+                                    else echo "Utilisateur introuvable";
                                 ?>
                                 <a href="?action=view_profile&pseudo=<?php echo $pseudo_parent?>" target="_blank">
                                     <?php
@@ -124,6 +118,3 @@
         </div>
     </div>
 </body>
-<?php
-    }
-?>

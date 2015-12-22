@@ -18,6 +18,9 @@ class mainController
 
 	public static function index($request,$context){
         $context->title = "Index";
+        if(context::getSessionAttribute("connect") != "true"){
+            header('Location:goater.php?action=login');
+        }
 
         $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
         $id = context::getSessionAttribute("id");
@@ -35,12 +38,7 @@ class mainController
 
     public static function view_profile($request,$context){
         if(context::getSessionAttribute("connect") != "true"){
-            if($_REQUEST['id'] == 1){
-                header('Location:goater.php?action=login&redirect=view_profile&id=1');
-            }
-            else{
-                header('Location:goater.php?action=login');
-            }
+            header('Location:goater.php?action=login');
         }
         if(isset($_REQUEST['action'])){
             $context->action = $_REQUEST['action'];
@@ -86,7 +84,7 @@ class mainController
                         $user -> nom = $nom_update;
                         $user -> save();
 
-                         echo '<script language="javascript" type="text/javascript">
+                        echo '<script language="javascript" type="text/javascript">
                             window.location.replace("?action=view_profile");
                           </script>';
                     }
@@ -100,13 +98,6 @@ class mainController
         if(isset($_REQUEST['action'])){
             $context->action = $_REQUEST['action'];
             $context->title = "Liste";
-        }
-		return context::SUCCESS;
-	}
-    public static function bele($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
-            $context->title = "Bêle";
         }
 		return context::SUCCESS;
 	}
@@ -126,11 +117,18 @@ class mainController
     }
     public static function delete_tweet($request,$context){
         $id = $_REQUEST["id"];
-        echo $id;
+        $redirect = $_REQUEST["redirect"];
         tweetTable::deleteTweetById($id);
-       /* echo '<script language="javascript" type="text/javascript">
-                window.location.replace("?action=view_profile");
-              </script>';*/
+        return context::SUCCESS;
+    }
+    public static function share_tweet($request,$context){
+        if(isset($_REQUEST['action'])){
+            $context->action = $_REQUEST['action'];
+            $context->title = "Partage de Tweet";
+            if(isset($_REQUEST["id"])){
+                $context -> tweet_share = tweetTable::getTweetById($_REQUEST["id"]);
+            }
+        }
 
         return context::SUCCESS;
     }

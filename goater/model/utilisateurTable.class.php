@@ -33,7 +33,7 @@ class utilisateurTable {
 
     public static function getUsers(){
         $connection = new dbconnection();
-        $sql = "select * from jabaianb.utilisateur";
+        $sql = "select * from jabaianb.utilisateur order by id DESC";
         $res = $connection->doQueryObject($sql,'utilisateur');
         if($res === false)
           return false ;

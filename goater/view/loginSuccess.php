@@ -54,7 +54,7 @@
                                 ?>
 								<form id="login-form" action='<?php echo $action?>' method="post" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($_POST["login"])) echo $_POST["login"]; ?>">
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
@@ -73,25 +73,25 @@
 								</form>
 								<form id="register-form" action="?action=login" method="POST" role="form" enctype="multipart/form-data" style="display:none;">
                                     <div class="form-group">
-								        <input type="text" placeholder="Prenom" name="prenom" id="prenom" required="required">
+								        <input type="text" placeholder="Prenom" name="prenom" id="prenom" required="required" value="<?php if (isset($_POST["prenom"])) echo $_POST["prenom"]; ?>">
                                     </div>
                                     <div class="form-group">
-								        <input type="text" placeholder="Nom" name="nom" id="nom" required="required">
+								        <input type="text" placeholder="Nom" name="nom" id="nom" required="required" value="<?php if (isset($_POST["nom"])) echo $_POST["nom"]; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <input type="file" name="avatar" id="avatar" required="required">
+                                        <input type="file" name="avatar" id="avatar">
                                     </div>
 									<div class="form-group">
-										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($_POST["login"])) echo $_POST["login"]; ?>" required="required">
 									</div>
 									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="<?php if (isset($_POST["email"])) echo $_POST["email"]; ?>" required="required">
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required="required">
 									</div>
 									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required="required">
 									</div>
 									<!--<div class="form-group">
 									    <div class="col-sm-3">

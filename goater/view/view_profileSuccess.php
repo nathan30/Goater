@@ -26,7 +26,7 @@
     }
     if($avatar == "" || !file_exists($avatar)){
         if($check == false){
-            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/avatar/default.png";
+            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
         }
     }
 
@@ -91,9 +91,10 @@
                             <p><small>Bêles</small></p>
                         </div>
                     </div>
-                    <form action="?action=view_profile" method="POST">
+                    <form action="?action=view_profile" method="POST" enctype="multipart/form-data">
                         <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?"><?php if(isset($_REQUEST["pseudo"]))echo "@$identifiant ";?></textarea>
-                       <input type="submit" value="Beler">
+                        <input type="file" name="avatar">
+                        <input type="submit" value="Beler">
                         <?php
                         if(isset($_POST["tweet"])){
                             tweetTable::sendTweet($_POST["tweet"]);
@@ -114,17 +115,24 @@
                         $pseudo_emetteur = $pseud_emetteur[0]->identifiant;
                         $nom_emetteur = $pseud_emetteur[0]->nom;
                         $prenom_emetteur = $pseud_emetteur[0]->prenom;
-                    $parent = $goat -> parent;
                     $post_emetteur = $goat->getPost();
+
                     $nbvote = $goat -> getLikes();
                 ?>
                     <blockquote class="goat-box">
-                        <p class="goat-text">
-                            <?php echo $post_emetteur[0] -> texte ?>
-                        </p>
                         <p class="pull-right">
-                            <a href="?action=delete_tweet&id=<?php echo $id ?>" class="glyphicon glyphicon-trash"></a>
+                            <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=view_profile" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
                         </p>
+                        <div class="goat-post">
+                            <p class="goat-text">
+                                <?php echo $post_emetteur[0] -> texte ?>
+                            </p>
+                            <img src="<?php echo $post_emetteur[0] -> image ?>" class="img-responsive">
+                            <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
+                                <?php echo $post_emetteur[0] -> date; ?>
+                            </a>
+                        </div>
+
                         <hr>
                         <div class="blog-post-actions">
                             <p class="goat-author blog-post-bottom pull-left">
