@@ -129,7 +129,15 @@
                             </p>
                             <img src="<?php echo $post_emetteur[0] -> image ?>" class="img-responsive">
                             <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
-                                <?php echo $post_emetteur[0] -> date; ?>
+                                <?php
+                                    setlocale (LC_TIME, 'fr_FR.utf8','fra');
+                                    $date_post = $post_emetteur[0] -> date;
+                                    $format_date = explode(" ",$date_post);
+                                    $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
+                                    $heure = DateTime::createFromFormat('H:i:s',$format_date[1]);
+                                    echo $date -> format('l d M ');
+                                    echo $heure -> format('H:i');
+                                ?>
                             </a>
                         </div>
 
