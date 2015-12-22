@@ -155,9 +155,9 @@
                             </p>
                         </div>
                     </blockquote>
-                    <?php
-                }
-            ?>
+                <?php
+                    }
+                ?>
             </div>
         </div>
     </div>
