@@ -81,7 +81,6 @@ class mainController
                             if($uploadOk == 1){
                                 $user -> avatar = $target_file;
                             }
-
                         $user -> statut = $statut_update;
                         $user -> prenom = $prenom_update;
                         $user -> nom = $nom_update;
@@ -123,6 +122,16 @@ class mainController
             $context->action = $_REQUEST['action'];
             $context->title = "Erreur 404";
         }
+        return context::SUCCESS;
+    }
+    public static function delete_tweet($request,$context){
+        $id = $_REQUEST["id"];
+        echo $id;
+        tweetTable::deleteTweetById($id);
+       /* echo '<script language="javascript" type="text/javascript">
+                window.location.replace("?action=view_profile");
+              </script>';*/
+
         return context::SUCCESS;
     }
 }

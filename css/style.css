@@ -6,6 +6,14 @@ body {
     padding-top: 90px;
 }
 
+.glyphicon-trash{
+    top:-15px!important;
+    color:grey;
+}
+
+.glyphicon-trash:hover {
+    color:black;
+}
 /********** LOGIN FORM **********/
 
 .panel-login {

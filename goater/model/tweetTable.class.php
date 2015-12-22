@@ -8,6 +8,15 @@
               return false ;
             return $res ;
         }
+        function getTweetById($id){
+            $connection = new dbconnection();
+            $sql = "select * from jabaianb.tweet where id=$id";
+            echo $sql;
+            $res = $connection->doQueryObject($sql,'tweet');
+            if($res === false)
+              return false ;
+            return $res ;
+        }
         function getTweetsPostedBy($id){
             $connection = new dbconnection();
             $sql = "select * from jabaianb.tweet where emetteur='".$id."' order by id DESC";
@@ -34,7 +43,19 @@
             if ($resPost === false || $resTweet === false) {
                 return false;
             }
-
             return true;
+        }
+        public function deleteTweetById($id){
+            $tweet = tweetTable::getTweetById($id);
+            print_r($tweet);
+            $id_post = $tweet[0] -> post;
+            $connection = new dbconnection();
+            $sql = "delete from jabaianb.tweet where id='".$id."'";
+            $res = $connection->doExec($sql);
+            $sql = "delete from jabaianb.post where id='".$id_post."'";
+            $res = $connection->doExec($sql);
+            if($res === false)
+              return false ;
+            return $res ;
         }
     }

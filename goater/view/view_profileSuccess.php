@@ -122,6 +122,9 @@
                         <p class="goat-text">
                             <?php echo $post_emetteur[0] -> texte ?>
                         </p>
+                        <p class="pull-right">
+                            <a href="?action=delete_tweet&id=<?php echo $id ?>" class="glyphicon glyphicon-trash"></a>
+                        </p>
                         <hr>
                         <div class="blog-post-actions">
                             <p class="goat-author blog-post-bottom pull-left">
