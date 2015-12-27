@@ -95,7 +95,7 @@
                         <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?"><?php if(isset($_REQUEST["pseudo"]))echo "@$identifiant ";?></textarea>
                         <input type="file" name="avatar">
                         <input type="submit" value="Beler">
-                        <?php
+                    <?php
                         if(isset($_POST["tweet"])){
                             tweetTable::sendTweet($_POST["tweet"]);
                         }
@@ -130,7 +130,6 @@
                             <img src="<?php echo $post_emetteur[0] -> image ?>" class="img-responsive">
                             <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
                                 <?php
-                                    setlocale (LC_TIME, 'fr_FR.utf8','fra');
                                     $date_post = $post_emetteur[0] -> date;
                                     $format_date = explode(" ",$date_post);
                                     $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);

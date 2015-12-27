@@ -10,4 +10,6 @@ Ajout de la suppression du tweet. Ajout dans le controller de delete_tweet et de
 getTweetById($id). La fonction supprime le tweet ainsi que le post associé
 Les images sont gérées et affichées. A cause du problème des urls des images, si une image est présente mais non accessible une chèvre est 
 affichée
-Ajout de la fonction share_tweet pour afficher seulement un tweet
+Ajout de la fonction share_tweet pour afficher seulement un tweet et le partager
+Ajout de la fonction search afin de chercher des tweets via un mot clés (ajout de la fonction getPostByHashTag($hashtag) 
+et getTweetsByPostId($id) )

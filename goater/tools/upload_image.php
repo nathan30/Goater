@@ -13,7 +13,7 @@
             $uploadOk = 0;
         }
     }
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+    if($imageFileType != "jpg" && $imageFileType != "JPG" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
         echo "<p class='goat-login-error'>Désolé, uniquement les extensions suivantes sont autorisées JPG, JPEG, PNG & GIF</p>";
         $uploadOk = 0;
     }

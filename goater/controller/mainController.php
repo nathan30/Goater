@@ -12,7 +12,53 @@ class mainController
                 $context->redirect = $_REQUEST['redirect'];
             }
             $context->title = "Login";
-        }
+        // <!-- ********** GOATER - LOGIN AND REGISTER - PHP ********** -->
+            if($_SERVER['REQUEST_METHOD']==='POST' ){
+                if(isset($_POST["login-submit"])){
+                    if(isset($_POST["login"]) && isset($_POST["password"])){
+                        if($res = utilisateurTable::getUserByLoginAndPass($_POST["login"],$_POST["password"])){
+                            foreach($res as $r) {
+                                $id = $r["id"];
+                            }
+                            context::setSessionAttribute("id",$id);
+                            context::setSessionAttribute("connect","true");
+                            if(isset($_REQUEST['redirect'])){
+                                echo '<script language="javascript" type="text/javascript">
+                                window.location.replace("goater.php?action='.$context->redirect.'&id=1");
+                              </script>';
+                            }
+                            else{
+                                echo '<script language="javascript" type="text/javascript">
+                                window.location.replace("goater.php");
+                              </script>';
+                            }
+                        }
+                        else{
+                            echo "<p class='goat-login-error'>Couple incorrect</p>";
+                        }
+                    }
+                }
+                if(isset($_POST["register-submit"])){
+                    $prenom = $_POST["prenom"];
+                    $nom = $_POST["nom"];
+                    $login = $_POST["login"];
+                    $password = sha1($_POST["password"]);
+                    // ********** GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
+                    include 'goater/tools/upload_image.php';
+                    // ********** END GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
+                    // ********** GOATER - LOGIN AND REGISTER - PHP - ADD IN DATABASE **********
+                    if($uploadOk == 1){
+                        $new_user = new utilisateur();
+                        $new_user -> avatar = $target_file;
+                        $new_user -> identifiant = $login;
+                        $new_user -> pass = $password;
+                        $new_user -> nom = $nom;
+                        $new_user -> prenom = $prenom;
+                        $new_user -> save();
+                    }
+                }
+            }
+        // <!-- ********** END GOATER - LOGIN AND REGISTER - PHP ********** -->
         return context::SUCCESS;
     }
 
@@ -129,7 +175,14 @@ class mainController
                 $context -> tweet_share = tweetTable::getTweetById($_REQUEST["id"]);
             }
         }
+        return context::SUCCESS;
+    }
+    public static function search($request,$context){
+        if(isset($_REQUEST['action'])){
+            $context->action = $_REQUEST['action'];
+            $context->title = $_REQUEST["q"];
 
+        }
         return context::SUCCESS;
     }
 }

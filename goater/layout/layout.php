@@ -36,6 +36,7 @@
                     Welcome to Goater
                 </div>
             </div>
+
             <div id="navbar" class="collapse navbar-collapse">
                 <?php
                     if(context::getSessionAttribute("connect") == "true"){
@@ -49,6 +50,19 @@
                         </div>';
                     }
                 ?>
+                <form class="navbar-form navbar-right" role="search" method="post">
+                    <div class="form-group">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default" style="margin-right:10px;">Submit</button>
+                    <?php
+                       if(isset($_POST["search"])){
+                            $search = $_POST['search'];
+                            echo $search;
+                            header("location:?action=search&q=$search");
+                        }
+                    ?>
+                </form>
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="goater.php" id="menuhome">Accueil</a>

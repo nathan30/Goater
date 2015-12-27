@@ -24,6 +24,14 @@
               return false ;
             return $res ;
         }
+        function getTweetsByPostId($id){
+            $connection = new dbconnection();
+            $sql = "select * from jabaianb.tweet where post='".$id."' order by id DESC";
+            $res = $connection->doQueryObject($sql,'tweet');
+            if($res === false)
+              return false ;
+            return $res ;
+        }
         public function sendTweet($request){
             $connection = new dbconnection();
             $datePost = date('d-m-Y, H:i:s');

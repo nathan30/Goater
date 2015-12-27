@@ -8,4 +8,14 @@
               return false ;
             return $res ;
         }
+
+        function getPostByHashTag($hashtag){
+            $connection = new dbconnection();
+            $sql = "select * from jabaianb.post where texte like '%$hashtag%'";
+            $res = $connection->doQueryObject($sql,'tweet');
+            if($res === false)
+              return false ;
+            return $res;
+
+        }
     }
