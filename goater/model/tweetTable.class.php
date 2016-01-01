@@ -10,7 +10,7 @@
         }
         function getTweetById($id){
             $connection = new dbconnection();
-            $sql = "select * from jabaianb.tweet where id=$id";
+            $sql = "select * from jabaianb.tweet where id=$id order by id DESC";
             $res = $connection->doQueryObject($sql,'tweet');
             if($res === false)
               return false ;
@@ -32,14 +32,16 @@
               return false ;
             return $res ;
         }
-        public function sendTweet($request){
+        public function sendTweet(){
             $connection = new dbconnection();
             $datePost = date('d-m-Y, H:i:s');
             include 'goater/tools/upload_image.php';
             if($uploadOk == 1){
                 $sql = "INSERT INTO jabaianb.post (texte, date,image) VALUES('".$_REQUEST['tweet']."','".$datePost."','".$target_file."')";
-            }else $sql = "INSERT INTO jabaianb.post (texte, date) VALUES('".$_REQUEST['tweet']."','".$datePost."')";
-
+            }
+            else{
+                $sql = "INSERT INTO jabaianb.post (texte, date) VALUES('".$_REQUEST['tweet']."','".$datePost."')";
+            }
             $res = $connection->doExec($sql);
 
             $sql = "SELECT * FROM jabaianb.post WHERE date='".$datePost."'";
@@ -68,5 +70,25 @@
             if($res === false)
               return false ;
             return $res ;
+        }
+        public function addVoteById($id){
+            $connection = new dbconnection();
+            $sql = "select * from jabaianb.tweet where id='".$id."'";
+            $res = $connection->doQueryObject($sql,'tweet');
+            $nbvote_init = $res[0] -> nbvotes;
+            $nbvote = $nbvote_init + 1;
+            $res[0] -> nbvotes = $nbvote;
+            $res[0] -> save();
+        }
+        public function rtTweetById($id){
+            $connection = new dbconnection();
+            $datePost = date('d-m-Y, H:i:s');
+            $sql = "select * from jabaianb.tweet where id='".$id."'";
+            $res = $connection->doQueryObject($sql,'tweet');
+            $parent = $res[0] -> parent;
+            $id_post = $res[0] -> post;
+            $emetteur = context::getSessionAttribute("id");
+            $sql = "INSERT INTO jabaianb.tweet (emetteur, parent, post, nbvotes) VALUES('$emetteur','$parent','$id_post','0')";
+            $res = $connection->doExec($sql);
         }
     }

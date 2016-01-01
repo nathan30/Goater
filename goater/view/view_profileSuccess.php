@@ -97,7 +97,7 @@
                         <input type="submit" value="Beler">
                     <?php
                         if(isset($_POST["tweet"])){
-                            tweetTable::sendTweet($_POST["tweet"]);
+                            tweetTable::sendTweet();
                         }
                     ?>
                     </form>
@@ -149,8 +149,9 @@
                                     </a>
                             </p>
                             <p class="blog-post-bottom pull-right">
+                                <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
                                 <span class="badge quote-badge"><?php echo $nbvote ?></span>
-                                <a class="like glyphicon glyphicon-heart"></a>
+                                <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
                             </p>
                         </div>
                     </blockquote>

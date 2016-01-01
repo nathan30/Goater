@@ -83,21 +83,13 @@
                                     </div>
 									<div class="form-group">
 										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($_POST["login"])) echo $_POST["login"]; ?>" required="required">
-									</div>
-									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="<?php if (isset($_POST["email"])) echo $_POST["email"]; ?>" required="required">
-									</div>
+                                    </div>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required="required">
 									</div>
 									<div class="form-group">
 										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required="required">
 									</div>
-									<!--<div class="form-group">
-									    <div class="col-sm-3">
-                                            <div id="captcha" class="g-recaptcha" data-sitekey="6Ld0Ew8TAAAAAN-FRKE15g9Gb1RkzoTWI75atTk8"></div>
-                                        </div>
-									</div>-->
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
@@ -118,7 +110,6 @@
 
     ?>
     <!-- ********** GOATER - JAVASCRIPT ********** -->
-    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <!-- ********** END GOATER - JAVASCRIPT ********** -->

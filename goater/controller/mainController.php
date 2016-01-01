@@ -60,6 +60,7 @@ class mainController
             }
         // <!-- ********** END GOATER - LOGIN AND REGISTER - PHP ********** -->
         return context::SUCCESS;
+        }
     }
 
 	public static function index($request,$context){
@@ -182,6 +183,24 @@ class mainController
             $context->action = $_REQUEST['action'];
             $context->title = $_REQUEST["q"];
 
+        }
+        return context::SUCCESS;
+    }
+    public static function addVote($request,$context){
+        if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
+            tweetTable::addVoteById($_REQUEST["id"]);
+            echo '<script language="javascript" type="text/javascript">
+                    window.location.replace("goater.php");
+                  </script>';
+        }
+        return context::SUCCESS;
+    }
+    public static function rtTweet($request,$context){
+        if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
+            tweetTable::rtTweetById($_REQUEST["id"]);
+            echo '<script language="javascript" type="text/javascript">
+                    window.location.replace("goater.php");
+                  </script>';
         }
         return context::SUCCESS;
     }

@@ -11,7 +11,7 @@
 
         function getPostByHashTag($hashtag){
             $connection = new dbconnection();
-            $sql = "select * from jabaianb.post where texte like '%$hashtag%'";
+            $sql = "select * from jabaianb.post where texte like '%$hashtag%' order by id DESC";
             $res = $connection->doQueryObject($sql,'tweet');
             if($res === false)
               return false ;

@@ -57,3 +57,13 @@ a.retweet:hover{
     display: block;
     margin-bottom: -20px;
 }
+
+.if-RT {
+    font-size: 10px!important;
+    border: 1px solid black;
+    padding: 30px;
+}
+
+.rt {
+    font-size: 15px;
+}

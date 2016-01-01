@@ -39,7 +39,6 @@
                     <img src="<?php echo $post_image; ?>" class="img-responsive">
                     <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
                         <?php
-                            setlocale (LC_TIME, 'fr_FR.utf8','fra');
                             $date_post = $post_emetteur[0] -> date;
                             $format_date = explode(" ",$date_post);
                             $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
@@ -67,8 +66,9 @@
                         </a>
                     </p>
                     <p class="blog-post-bottom pull-right">
+                        <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
                         <span class="badge quote-badge"><?php echo $nbvote ?></span>
-                        <a class="like glyphicon glyphicon-heart"></a>
+                        <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
                     </p>
                 </div>
                 </blockquote>

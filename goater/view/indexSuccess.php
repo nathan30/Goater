@@ -50,6 +50,7 @@
                     foreach($goat_list as $goat){
                         $id = $goat -> id;
                         $parent_info = utilisateurTable::getUserById($goat -> getParent());
+                        $emetteur_info = utilisateurTable::getuserById($goat -> emetteur);
                         $post_emetteur = $goat->getPost();
                         $post_image = $post_emetteur[0] -> image;
                         if($post_image != "" && !file_exists($post_image)){
@@ -71,49 +72,89 @@
                         }
                         else $check = false;
                         $nbvote = $goat -> getLikes();
+                        if($goat -> emetteur != $goat -> parent) $check_rt = true;
+                        else $check_rt = false;
                     ?>
                     <blockquote class="goat-box">
-                        <p class="pull-right">
-                            <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
-                        </p>
-                       <div class="goat-post">
-                            <p class="goat-text">
-                                <?php echo $post_emetteur[0] -> texte ?>
-                            </p>
-                            <img src="<?php echo $post_image; ?>" class="img-responsive">
-                            <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
-                                <?php
-                                    setlocale (LC_TIME, 'fr_FR.utf8','fra');
-                                    $date_post = $post_emetteur[0] -> date;
-                                    $format_date = explode(" ",$date_post);
-                                    $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
-                                    $heure = DateTime::createFromFormat('H:i:s',$format_date[1]);
-                                    echo $date -> format('l d M ');
-                                    echo $heure -> format('H:i');
-                                ?>
-                            </a>
-                        </div>
-                        <hr>
-                        <div class = "user">
-                            <?php
-                                if($check) echo "<img src='$avatar_parent' class='img-responsive'>";
-                            ?>
-                            <p class="goat-author blog-post-bottom pull-left">
-
-                                <?php
-                                    if($check) echo "$prenom_parent $nom_parent";
-                                    else echo "Utilisateur introuvable";
-                                ?>
-                                <a href="?action=view_profile&pseudo=<?php echo $pseudo_parent?>" target="_blank">
+                        <?php
+                            if($check_rt){
+                        ?>
+                            <div class = "user">
+                                <p class="rt">
                                     <?php
-                                        if($check) echo "@$pseudo_parent";
+                                        if(isset($emetteur_info[0])){
+                                            $pseudo = $emetteur_info[0] -> identifiant;
+                                            echo "$pseudo a retweeter ce tweet";
+                                        }else echo "Utilisateur introuvable a retweeter ce tweet";
+                                    ?>
+                                </p>
+                            </div>
+                        <?php
+                            }
+                        ?>
+                        <div class="<?php if($check_rt) echo "if-RT"?>">
+                            <?php
+                                if(!$check_rt){
+                            ?>
+                                    <p class="pull-right">
+                                        <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+                                    </p>
+
+                            <?php
+                                }
+                            ?>
+                           <div class="goat-post">
+                                <p class="goat-text">
+                                    <?php echo $post_emetteur[0] -> texte ?>
+                                </p>
+                                <img src="<?php echo $post_image; ?>" class="img-responsive">
+                                <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
+                                    <?php
+                                        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+                                        $date_post = $post_emetteur[0] -> date;
+                                        $format_date = explode(" ",$date_post);
+                                        $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
+                                        $heure = DateTime::createFromFormat('H:i:s',$format_date[1]);
+                                        echo $date -> format('l d M ');
+                                        echo $heure -> format('H:i');
                                     ?>
                                 </a>
-                            </p>
-                            <p class="blog-post-bottom pull-right">
-                                <span class="badge quote-badge"><?php echo $nbvote ?></span>
-                                <a class="like glyphicon glyphicon-heart"></a>
-                            </p>
+                            </div>
+                            <hr>
+                            <div class = "user">
+                                <?php
+                                    if($check) echo "<img src='$avatar_parent' class='img-responsive'>";
+                                ?>
+                                <p class="goat-author blog-post-bottom pull-left">
+
+                                    <?php
+                                        if($check) echo "$prenom_parent $nom_parent";
+                                        else echo "Utilisateur introuvable";
+                                    ?>
+                                    <a href="?action=view_profile&pseudo=<?php echo $pseudo_parent?>" target="_blank">
+                                        <?php
+                                            if($check) echo "@$pseudo_parent";
+                                        ?>
+                                    </a>
+                                </p>
+                                <?php
+                                    if(!$check_rt){
+                                ?>
+                                        <p class="blog-post-bottom pull-right">
+                                            <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
+                                            <span class="badge quote-badge"><?php echo $nbvote ?></span>
+                                            <?php
+                                                if($goat -> emetteur != $id_user){
+                                            ?>
+                                                    <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
+                                            <?php
+                                                }
+                                            ?>
+                                        </p>
+                                <?php
+                                    }
+                                ?>
+                            </div>
                         </div>
                     </blockquote>
                 <?php
