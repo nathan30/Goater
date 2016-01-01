@@ -13,3 +13,5 @@ affichée
 Ajout de la fonction share_tweet pour afficher seulement un tweet et le partager
 Ajout de la fonction search afin de chercher des tweets via un mot clés (ajout de la fonction getPostByHashTag($hashtag) 
 et getTweetsByPostId($id) )
+Ajout de la fonction RT avec la fonction rtTweetById($id)
+Ajout de la fonction like avec addVotebyId($id)

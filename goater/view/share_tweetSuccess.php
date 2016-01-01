@@ -68,7 +68,7 @@
         <p class="blog-post-bottom pull-right">
             <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
             <span class="badge quote-badge"><?php echo $nbvote ?></span>
-            <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
+            <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
         </p>
     </div>
 </blockquote>

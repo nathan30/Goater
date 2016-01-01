@@ -34,11 +34,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <form action="goater.php" method="POST" enctype="multipart/form-data">
+            <div class="col-sm-9">
+                <form class="form_bele"action="goater.php" method="POST" enctype="multipart/form-data">
                     <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?"></textarea>
                     <input type="file" name="avatar">
                     <input class="btn primary-btn goat-bele-submit" type="submit" value="Bêler">
+                    <hr>
                     <?php
                         if(isset($_POST["tweet"])){
                             tweetTable::sendTweet($_POST["tweet"]);
@@ -84,8 +85,8 @@
                                     <?php
                                         if(isset($emetteur_info[0])){
                                             $pseudo = $emetteur_info[0] -> identifiant;
-                                            echo "$pseudo a retweeter ce tweet";
-                                        }else echo "Utilisateur introuvable a retweeter ce tweet";
+                                            echo "$pseudo a retweeté ce tweet";
+                                        }else echo "Utilisateur introuvable a retweeté ce tweet";
                                     ?>
                                 </p>
                             </div>
@@ -110,7 +111,6 @@
                                 <img src="<?php echo $post_image; ?>" class="img-responsive">
                                 <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
                                     <?php
-                                        setlocale (LC_TIME, 'fr_FR.utf8','fra');
                                         $date_post = $post_emetteur[0] -> date;
                                         $format_date = explode(" ",$date_post);
                                         $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
@@ -146,7 +146,7 @@
                                             <?php
                                                 if($goat -> emetteur != $id_user){
                                             ?>
-                                                    <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
+                                                    <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
                                             <?php
                                                 }
                                             ?>
@@ -159,12 +159,6 @@
                     </blockquote>
                 <?php
                     }
-                ?>
-            </div>
-            <div class="col-sm-3 user-list-index">
-                <h3>Liste des utilisateurs</h3>
-                <?php
-                    include 'goater/view/liste_userSuccess.php';
                 ?>
             </div>
         </div>

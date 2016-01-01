@@ -6,6 +6,7 @@
             $tweet_list = tweetTable::getTweetsByPostId($id_post);
             foreach($tweet_list as $tweet){
                 $parent_info = utilisateurTable::getUserById($tweet -> getParent());
+                $emetteur_info = utilisateurTable::getuserById($tweet -> emetteur);
                 $post_emetteur = $tweet->getPost();
                 $post_image = $post_emetteur[0] -> image;
                 if($post_image != "" && !file_exists($post_image)){
@@ -27,11 +28,37 @@
                 }
                 else $check = false;
                 $nbvote = $tweet -> getLikes();
+                if($tweet -> emetteur != $tweet -> parent) $check_rt = true;
+                else $check_rt = false;
 ?>
                 <blockquote class="goat-box">
-                <p class="pull-right">
-                    <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
-                </p>
+                <?php
+                    if($check_rt){
+                ?>
+                    <div class = "user">
+                        <p class="rt">
+                            <?php
+                                if(isset($emetteur_info[0])){
+                                    $pseudo = $emetteur_info[0] -> identifiant;
+                                    echo "$pseudo a retweeté ce tweet";
+                                }else echo "Utilisateur introuvable a retweeté ce tweet";
+                            ?>
+                        </p>
+                    </div>
+                <?php
+                    }
+                ?>
+                <div class="<?php if($check_rt) echo "if-RT"?>">
+                    <?php
+                        if(!$check_rt){
+                    ?>
+                            <p class="pull-right">
+                                <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+                            </p>
+
+                    <?php
+                        }
+                    ?>
                 <div class="goat-post">
                     <p class="goat-text">
                         <?php echo $post_emetteur[0] -> texte ?>
@@ -65,11 +92,24 @@
                             ?>
                         </a>
                     </p>
-                    <p class="blog-post-bottom pull-right">
-                        <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
-                        <span class="badge quote-badge"><?php echo $nbvote ?></span>
-                        <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
-                    </p>
+                    <?php
+                        if(!$check_rt){
+                    ?>
+                            <p class="blog-post-bottom pull-right">
+                                <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
+                                <span class="badge quote-badge"><?php echo $nbvote ?></span>
+                                <?php
+                                    $id_user = context::getSessionAttribute("id");
+                                    if($tweet -> emetteur != $id_user){
+                                ?>
+                                        <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
+                                <?php
+                                    }
+                                ?>
+                            </p>
+                    <?php
+                        }
+                    ?>
                 </div>
                 </blockquote>
 <?php

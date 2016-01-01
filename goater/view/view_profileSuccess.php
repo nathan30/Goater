@@ -118,11 +118,34 @@
                     $post_emetteur = $goat->getPost();
 
                     $nbvote = $goat -> getLikes();
+                    if($emetteur != $goat -> parent) $check_rt = true;
+                    else $check_rt = false;
                 ?>
                     <blockquote class="goat-box">
-                        <p class="pull-right">
-                            <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=view_profile" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
-                        </p>
+                        <?php
+                            if($check_rt){
+                        ?>
+                            <div class = "user">
+                                <p class="rt">
+                                    <?php
+                                        echo "$pseudo_emetteur a retweeté ce tweet";
+                                    ?>
+                                </p>
+                            </div>
+                        <?php
+                            }
+                        ?>
+                        <div class="<?php if($check_rt) echo "if-RT"?>">
+                            <?php
+                                if(!$check_rt){
+                            ?>
+                                    <p class="pull-right">
+                                        <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+                                    </p>
+
+                            <?php
+                                }
+                            ?>
                         <div class="goat-post">
                             <p class="goat-text">
                                 <?php echo $post_emetteur[0] -> texte ?>
@@ -148,11 +171,23 @@
                                         <?php echo "@$pseudo_emetteur" ?>
                                     </a>
                             </p>
-                            <p class="blog-post-bottom pull-right">
-                                <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
-                                <span class="badge quote-badge"><?php echo $nbvote ?></span>
-                                <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet"></a>
-                            </p>
+                            <?php
+                                    if(!$check_rt){
+                                ?>
+                                        <p class="blog-post-bottom pull-right">
+                                            <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
+                                            <span class="badge quote-badge"><?php echo $nbvote ?></span>
+                                            <?php
+                                                if($goat -> emetteur != $id_user){
+                                            ?>
+                                                    <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
+                                            <?php
+                                                }
+                                            ?>
+                                        </p>
+                                <?php
+                                    }
+                                ?>
                         </div>
                     </blockquote>
                 <?php

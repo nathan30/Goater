@@ -8,7 +8,9 @@
     width: 650px;
     padding: 10px;
 }
-
+.col-sm-9 .goat-box{
+    width:90%!important;
+}
 .goat-author {
     font-size: 15px;
 }
