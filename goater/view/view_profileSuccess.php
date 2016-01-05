@@ -33,7 +33,6 @@
  // <!-- ********** END GOATER - RETRIEVE DATA ********** -->
 ?>
 
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
@@ -95,11 +94,6 @@
                         <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?"><?php if(isset($_REQUEST["pseudo"]))echo "@$identifiant ";?></textarea>
                         <input type="file" name="avatar">
                         <input type="submit" value="Beler">
-                    <?php
-                        if(isset($_POST["tweet"])){
-                            tweetTable::sendTweet();
-                        }
-                    ?>
                     </form>
                 </div>
             </div>
@@ -141,7 +135,7 @@
                                 if(!$check_rt){
                             ?>
                                     <p class="pull-right">
-                                        <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+                                        <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=view_profile" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
                                     </p>
 
                             <?php
@@ -176,15 +170,15 @@
                                     if(!$check_rt){
                                 ?>
                                         <p class="blog-post-bottom pull-right">
-                                        <?php
-                                            if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
-                                            else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
-                                        ?>
+                                            <?php
+                                                if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
+                                                else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+                                            ?>
                                             <span class="badge quote-badge"><?php echo $nbvote ?></span>
                                             <?php
                                                 if($goat -> emetteur != $id_user){
                                             ?>
-                                                    <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
+                                                <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
                                             <?php
                                                 }
                                             ?>

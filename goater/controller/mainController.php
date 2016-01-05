@@ -80,6 +80,10 @@ class mainController
         context::setSessionAttribute("avatar",$user->avatar);
         context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
 
+        if(isset($_POST["tweet"])){
+            tweetTable::sendTweet($_POST["tweet"]);
+        }
+
 		return context::SUCCESS;
 	}
 
@@ -137,6 +141,9 @@ class mainController
                     }
                 }
             }
+            if(isset($_POST["tweet"])){
+                tweetTable::sendTweet();
+            }
 
         }
 		return context::SUCCESS;
@@ -164,7 +171,6 @@ class mainController
     }
     public static function delete_tweet($request,$context){
         $id = $_REQUEST["id"];
-        $redirect = $_REQUEST["redirect"];
         tweetTable::deleteTweetById($id);
         return context::SUCCESS;
     }
@@ -189,9 +195,6 @@ class mainController
     public static function addVote($request,$context){
         if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
             tweetTable::addVoteById($_REQUEST["id"]);
-            echo '<script language="javascript" type="text/javascript">
-                    window.location.replace("goater.php");
-                  </script>';
         }
         return context::SUCCESS;
     }
@@ -204,4 +207,14 @@ class mainController
         }
         return context::SUCCESS;
     }
+
+
+    //Fonction AJAX
+
+    //crud create read update delete
+
+    public static function Ajax(){
+
+    }
+
 }

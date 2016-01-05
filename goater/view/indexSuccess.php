@@ -40,11 +40,6 @@
                     <input type="file" name="avatar">
                     <input class="btn primary-btn goat-bele-submit" type="submit" value="Bêler">
                     <hr>
-                    <?php
-                        if(isset($_POST["tweet"])){
-                            tweetTable::sendTweet($_POST["tweet"]);
-                        }
-                    ?>
                 </form>
                 <?php
                     $goat_list = tweetTable::getTweets();
