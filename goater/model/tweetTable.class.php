@@ -96,4 +96,11 @@
             $sql = "INSERT INTO jabaianb.tweet (emetteur, parent, post, nbvotes) VALUES('$emetteur','$parent','$id_post','0')";
             $res = $connection->doExec($sql);
         }
+        public function checkVoteByIdAndUser($id,$user){
+            $connection = new dbconnection();
+            $sql = "SELECT * FROM jabaianb.vote where utilisateur = $user AND message = $id";
+            $res = $connection->doQueryObject($sql,'tweet');
+            if($res == false) return false;
+            else return true;
+        }
     }

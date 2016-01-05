@@ -29,6 +29,9 @@
     cursor: pointer;
     color:black;
 }
+a.red{
+    color:red;
+}
 a.like:hover{
     color:red;
 }
