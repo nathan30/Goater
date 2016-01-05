@@ -120,6 +120,7 @@
                     $nbvote = $goat -> getLikes();
                     if($emetteur != $goat -> parent) $check_rt = true;
                     else $check_rt = false;
+                    $check_vote = tweetTable::checkVoteByIdAndUser($id,$id_user);
                 ?>
                     <blockquote class="goat-box">
                         <?php
@@ -175,7 +176,10 @@
                                     if(!$check_rt){
                                 ?>
                                         <p class="blog-post-bottom pull-right">
-                                            <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
+                                        <?php
+                                            if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
+                                            else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+                                        ?>
                                             <span class="badge quote-badge"><?php echo $nbvote ?></span>
                                             <?php
                                                 if($goat -> emetteur != $id_user){

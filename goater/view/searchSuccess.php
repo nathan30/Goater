@@ -5,6 +5,7 @@
             $id_post = $post -> id;
             $tweet_list = tweetTable::getTweetsByPostId($id_post);
             foreach($tweet_list as $tweet){
+                $id = $tweet->id;
                 $parent_info = utilisateurTable::getUserById($tweet -> getParent());
                 $emetteur_info = utilisateurTable::getuserById($tweet -> emetteur);
                 $post_emetteur = $tweet->getPost();
@@ -30,6 +31,8 @@
                 $nbvote = $tweet -> getLikes();
                 if($tweet -> emetteur != $tweet -> parent) $check_rt = true;
                 else $check_rt = false;
+                $id_user = context::getSessionAttribute("id");
+                $check_vote = tweetTable::checkVoteByIdAndUser($id,$id_user);
 ?>
                 <blockquote class="goat-box">
                 <?php
@@ -96,7 +99,10 @@
                         if(!$check_rt){
                     ?>
                             <p class="blog-post-bottom pull-right">
-                                <a href="?action=addVote&id=<?php echo $id?>" class="like glyphicon glyphicon-heart"></a>
+                            <?php
+                                if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
+                                else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+                            ?>
                                 <span class="badge quote-badge"><?php echo $nbvote ?></span>
                                 <?php
                                     $id_user = context::getSessionAttribute("id");

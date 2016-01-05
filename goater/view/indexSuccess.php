@@ -149,12 +149,11 @@
                                             if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
                                             else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
                                         ?>
-
                                             <span class="badge quote-badge"><?php echo $nbvote ?></span>
-                                            <?php
-                                                if($goat -> emetteur != $id_user){
-                                            ?>
-                                                    <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
+                                        <?php
+                                            if($goat -> emetteur != $id_user){
+                                        ?>
+                                            <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
                                             <?php
                                                 }
                                             ?>
