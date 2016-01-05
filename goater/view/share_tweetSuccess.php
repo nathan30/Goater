@@ -13,7 +13,7 @@
             $nom_parent = $parent_info[0] -> nom;
             $avatar_parent = $parent_info[0] -> avatar;
 
-            if (strpos($avatar_parent,'http') !== false) $check = true;
+            if (strpos($avatar_parent,'http') !== false) $check_image = true;
             else $check_image = false;
 
             if($avatar_parent == "" || !file_exists($avatar_parent)){

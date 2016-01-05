@@ -75,6 +75,11 @@
             $connection = new dbconnection();
             $sql = "select * from jabaianb.tweet where id='".$id."'";
             $res = $connection->doQueryObject($sql,'tweet');
+
+            $id_user = context::getSessionAttribute("id");
+            $sql = "INSERT INTO jabaianb.vote (utilisateur, message) VALUES('$id_user','$id')";
+            $resVote = $connection->doExec($sql);
+
             $nbvote_init = $res[0] -> nbvotes;
             $nbvote = $nbvote_init + 1;
             $res[0] -> nbvotes = $nbvote;
