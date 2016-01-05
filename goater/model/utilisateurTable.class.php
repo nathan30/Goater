@@ -39,4 +39,13 @@ class utilisateurTable {
           return false ;
         return $res ;
     }
+
+    public static function getUserByFirstNameOrLastName($request){
+        $connection = new dbconnection();
+        $sql = "SELECT * FROM jabaianb.utilisateur where nom like '%$request%' OR prenom like '%$request%' order by id DESC";
+        $res = $connection->doQueryObject($sql,'utilisateur');
+        if($res === false)
+          return false ;
+        return $res ;
+    }
 }

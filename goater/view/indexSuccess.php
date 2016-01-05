@@ -123,7 +123,9 @@
                             <hr>
                             <div class = "user">
                                 <?php
-                                    if($check) echo "<img src='$avatar_parent' class='img-responsive'>";
+                                    if($check_rt) $is_RT = "style=width:3%;";
+                                    else $is_RT = "";
+                                    if($check) echo "<img src='$avatar_parent' class='img-responsive' $is_RT >";
                                 ?>
                                 <p class="goat-author blog-post-bottom pull-left">
 
