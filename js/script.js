@@ -15,7 +15,6 @@ $(function(){
 	});
 });
 
-
 //Ajax
 
 function getTweetValue(){
