@@ -13,6 +13,9 @@ body {
 .glyphicon-trash:hover {
     color:black;
 }
+.thumbnail{
+    width:20%;
+}
 /********** LOGIN FORM **********/
 
 .panel-login {

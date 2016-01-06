@@ -36,8 +36,9 @@
             $connection = new dbconnection();
             $datePost = date('d-m-Y, H:i:s');
             include 'goater/tools/upload_image.php';
+            $uploadOk = 1;
             if($uploadOk == 1){
-                $sql = "INSERT INTO jabaianb.post (texte, date,image) VALUES('".$_REQUEST['tweet']."','".$datePost."','".$target_file."')";
+                $sql = "INSERT INTO jabaianb.post (texte, date,image) VALUES('".$_REQUEST['tweet']."','".$datePost."','".$_REQUEST['image']."')";
             }
             else{
                 $sql = "INSERT INTO jabaianb.post (texte, date) VALUES('".$_REQUEST['tweet']."','".$datePost."')";

@@ -97,14 +97,27 @@
                             <p><small>Bêles</small></p>
                         </div>
                     </div>
-                    <form action="?action=view_profile" method="POST" enctype="multipart/form-data" onSubmit="return getTweetValue()">
+                    <form id="form-tweet" action="?action=view_profile" method="POST" enctype="multipart/form-data">
                         <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required><?php if(isset($_REQUEST["pseudo"]))echo "@$identifiant ";?></textarea>
-                        <input type="file" name="avatar">
+                        <input type="file" name="image" class="image" accept="image/*">
                         <input type="hidden" name="identifiant" class="identifiant"value="<?php echo $identifiant_emetteur?>">
                         <input type="hidden" name="nom" class="nom" value="<?php echo $nom_emetteur?>">
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo $prenom_emetteur?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
                         <input type="submit" value="Beler" >
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <div id="image_preview">
+                                <div class="thumbnail hidden">
+                                    <img src="" alt="">
+                                    <div class="caption">
+                                        <h4></h4>
+                                        <p></p>
+                                        <p><button type="button" class="btn btn-default btn-danger">Annuler</button></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -213,7 +226,7 @@
                                         <p class="blog-post-bottom pull-right">
                                         <?php
                                             if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
-                                            else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+                                            else echo "<a href='?action=addVote&id=$id&redirect=view_profile' class='like glyphicon glyphicon-heart'></a>";
                                         ?>
                                             <span class="badge quote-badge"><?php echo $nbvote ?></span>
                                         <?php
