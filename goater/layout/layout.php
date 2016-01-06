@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="css/bele.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/ajaxupload-min.js" type="text/javascript"></script>
 <title>
     <?php
         echo $context->title;
@@ -77,7 +80,6 @@
     </header>
     <?php include($template_view); ?>
     <!-- ********** GOATER - JAVASCRIPT ********** -->
-    <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script src="js/bootstrap.js"></script>
     <!-- ********** END GOATER - JAVASCRIPT ********** -->

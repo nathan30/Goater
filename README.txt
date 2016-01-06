@@ -15,3 +15,8 @@ Ajout de la fonction search afin de chercher des tweets via un mot clés (ajout d
 et getTweetsByPostId($id) )
 Ajout de la fonction RT avec la fonction rtTweetById($id)
 Ajout de la fonction like avec addVotebyId($id)
+
+
+TP7 : 
+Ajout des fonctions AjaxGetTweets et AjaxCreateTweet, AjaxGetTweetById (a mettre directement dans l'action)
+Depuis la page goater.php?action=view_profile l'ajax pour l'envoie de tweet fonctionne

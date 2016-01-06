@@ -188,7 +188,6 @@ class mainController
         if(isset($_REQUEST['action'])){
             $context->action = $_REQUEST['action'];
             $context->title = $_REQUEST["q"];
-
         }
         return context::SUCCESS;
     }
@@ -213,8 +212,24 @@ class mainController
 
     //crud create read update delete
 
-    public static function Ajax(){
-
+    public static function AjaxCreateTweet($request,$context){
+        tweetTable::sendTweet();
+        return context::NONE;
     }
+    public static function AjaxReadTweets($request,$context){
+        $list_tweet = tweetTable::getTweets();
+        $jsonTweet['tweet'] = json_encode($list_tweet);
+        $context -> json = $jsonTweet;
+        print_r($jsonTweet['tweet']);
+        return context::NONE;
+    }
+    public static function AjaxReadTweetById($request,$context){
+        $list_tweet = tweetTable::getTweetById($_REQUEST["id"]);
+        $jsonTweet['tweet'] = json_encode($list_tweet);
+        $context -> json = $jsonTweet;
+        print_r($jsonTweet['tweet']);
+        return context::NONE;
+    }
+
 
 }
