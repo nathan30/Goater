@@ -99,31 +99,18 @@
                     </div>
                     <form id="form-tweet" action="?action=view_profile" method="POST" enctype="multipart/form-data">
                         <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required><?php if(isset($_REQUEST["pseudo"]))echo "@$identifiant ";?></textarea>
-                        <input type="file" name="image" class="image" accept="image/*">
                         <input type="hidden" name="identifiant" class="identifiant"value="<?php echo $identifiant_emetteur?>">
                         <input type="hidden" name="nom" class="nom" value="<?php echo $nom_emetteur?>">
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo $prenom_emetteur?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
                         <input type="submit" value="Beler" >
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <div id="image_preview">
-                                <div class="thumbnail hidden">
-                                    <img src="" alt="">
-                                    <div class="caption">
-                                        <h4></h4>
-                                        <p></p>
-                                        <p><button type="button" class="btn btn-default btn-danger">Annuler</button></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </form>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
+                <div class="container-goat1"></div>
                 <?php
                 $goat_user = tweetTable::getTweetsPostedBy($id_user);
                 foreach($goat_user as $goat){

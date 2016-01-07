@@ -213,11 +213,6 @@ class mainController
     //crud create read update delete
 
     public static function AjaxCreateTweet($request,$context){
-        ?>
-        <script>
-            alert('<?php echo $request->tweet?>');
-        </script>
-        <?php
         tweetTable::sendTweet();
         return context::NONE;
     }
