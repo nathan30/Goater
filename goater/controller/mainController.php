@@ -126,7 +126,7 @@ class mainController
                         $statut_update = $_POST["statut_update"];
                         $prenom_update = $_POST["prenom_update"];
                         $nom_update = $_POST["nom_update"];
-                            include 'goater/tools/upload_image.php';
+                        include 'goater/tools/upload_image.php';
                             if($uploadOk == 1){
                                 $user -> avatar = $target_file;
                             }
@@ -193,7 +193,13 @@ class mainController
     }
     public static function addVote($request,$context){
         if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
-            tweetTable::addVoteById($_REQUEST["id"]);
+            voteTable::addVoteById($_REQUEST["id"]);
+        }
+        return context::SUCCESS;
+    }
+    public static function deleteVote($request,$context){
+        if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
+            voteTable::delVoteById($_REQUEST["id"]);
         }
         return context::SUCCESS;
     }
@@ -210,25 +216,38 @@ class mainController
 
     //Fonction AJAX
 
-    //crud create read update delete
-
     public static function AjaxCreateTweet($request,$context){
         tweetTable::sendTweet();
         return context::NONE;
     }
-    public static function AjaxReadTweets($request,$context){
-        $list_tweet = tweetTable::getTweets();
-        $jsonTweet['tweet'] = json_encode($list_tweet);
-        $context -> json = $jsonTweet;
-        print_r($jsonTweet['tweet']);
+    public static function AjaxLikeTweet($request,$context){
+        voteTable::addVoteById($_REQUEST["id"]);
         return context::NONE;
     }
-    public static function AjaxReadTweetById($request,$context){
-        $list_tweet = tweetTable::getTweetById($_REQUEST["id"]);
-        $jsonTweet['tweet'] = json_encode($list_tweet);
-        $context -> json = $jsonTweet;
-        print_r($jsonTweet['tweet']);
+    public static function AjaxDeleteLikeTweet($request,$context){
+        voteTable::delVoteById($_REQUEST["id"]);
         return context::NONE;
+    }
+    public static function AjaxUpdateProfil($request,$context){
+        if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
+            if(isset($_POST["statut_update"]) && isset($_POST["nom_update"]) && isset($_POST["prenom_update"])){
+                $statut_update = $_POST["statut_update"];
+                $prenom_update = $_POST["prenom_update"];
+                $nom_update = $_POST["nom_update"];
+                $id = context::getSessionAttribute("id");
+
+                $user = utilisateurTable::getUserById($id)[0];
+                $user -> statut = $statut_update;
+                $user -> prenom = $prenom_update;
+                $user -> nom = $nom_update;
+                $user -> save();
+            }
+        }
+        return context::NONE;
+    }
+    public static function AjaxDeleteTweet($request,$context){
+        tweetTable::deleteTweetById($_REQUEST["id"]);
+        return context::SUCCESS;
     }
 
 

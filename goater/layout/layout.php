@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/profile.css">
 <link rel="stylesheet" href="css/bele.css">
-<link rel="stylesheet" type="text/css" href="css/uploadify.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

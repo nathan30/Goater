@@ -24,7 +24,7 @@
         else $check = false;
         $nbvote = $tweet[0] -> getLikes();
         $id_user = context::getSessionAttribute("id");
-        $check_vote = tweetTable::checkVoteByIdAndUser($id,$id_user);
+        $check_vote = voteTable::checkVoteByIdAndUser($id,$id_user);
 
 ?>
 <blockquote class="goat-box">
@@ -69,10 +69,10 @@
         </p>
         <p class="blog-post-bottom pull-right">
         <?php
-            if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
-            else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+            if($check_vote) echo "<a href='?action=deleteVote&id=$id&redirect=view_profile' class='red like glyphicon glyphicon-heart'>";
+            else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'>";
         ?>
-            <span class="badge quote-badge"><?php echo $nbvote ?></span>
+            <span class="badge quote-badge"><?php echo $nbvote ?></span></a>
             <a href="?action=rtTweet&id=<?php echo $id?>" class="retweet glyphicon glyphicon-retweet" onclick="return(confirm('Etes-vous sûr de vouloir retweeter ce goat ?'));"></a>
         </p>
     </div>

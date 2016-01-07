@@ -32,7 +32,7 @@
                 if($tweet -> emetteur != $tweet -> parent) $check_rt = true;
                 else $check_rt = false;
                 $id_user = context::getSessionAttribute("id");
-                $check_vote = tweetTable::checkVoteByIdAndUser($id,$id_user);
+                $check_vote = voteTable::checkVoteByIdAndUser($id,$id_user);
 ?>
                 <blockquote class="goat-box">
                 <?php
@@ -100,10 +100,10 @@
                     ?>
                             <p class="blog-post-bottom pull-right">
                             <?php
-                                if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
-                                else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+                                if($check_vote) echo "<a href='?action=deleteVote&id=$id&redirect=view_profile' class='red like glyphicon glyphicon-heart'>";
+                                else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'>";
                             ?>
-                                <span class="badge quote-badge"><?php echo $nbvote ?></span>
+                                <span class="badge quote-badge"><?php echo $nbvote ?></span></a>
                                 <?php
                                     $id_user = context::getSessionAttribute("id");
                                     if($tweet -> emetteur != $id_user){

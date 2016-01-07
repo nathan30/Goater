@@ -36,6 +36,7 @@
         $identifiant_emetteur= $user->identifiant;
         $avatar_emetteur= $user->avatar;
     }
+    $tweet = tweetTable::getTweets();
 
  // <!-- ********** END GOATER - RETRIEVE DATA ********** -->
 ?>
@@ -47,7 +48,7 @@
                 if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
                     $size = "col-md-6";
             ?>
-                    <form action='?action=view_profile&edit=true' method='POST' enctype="multipart/form-data">
+                    <form id='form-update' action='?action=view_profile&edit=true' method='POST' enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="text" placeholder="Prenom" name="prenom_update" id="prenom" required="required" value="<?php echo $prenom ?>">
                         </div>
@@ -58,7 +59,7 @@
                             <input type="file" name="avatar" id="avatar">
                         </div>
                         <div class="form-group">
-                            <textarea name='statut_update' rows='4' class='form-control' maxlength='100' style='resize:none'><?php echo $statut ?></textarea>
+                            <textarea id="statut" name='statut_update' rows='4' class='form-control' maxlength='100' style='resize:none'><?php echo $statut ?></textarea>
                         </div>
                         <div class="form-group">
                             <input type='submit' value="Mettre à jour le profil">
@@ -71,11 +72,11 @@
                }
             ?>
             </div>
-            <div class="<?php echo $size ?>">
+            <div class="bigger <?php echo $size ?>">
                 <div class="well profile">
                     <div class="col-sm-12">
                         <div class="col-xs-12 col-sm-8">
-                            <h2>
+                            <h2 id="nom_prenom">
                                 <?php
                                     echo "$nom $prenom";
                                 ?>
@@ -84,7 +85,7 @@
                                 <?php echo "@$identifiant"?>
                             </p>
                             <p><strong>Statut: </strong>
-                                <?php echo $statut;?>
+                                <span id="statut_form"><?php echo $statut;?></span>
                             </p>
                         </div>
                         <div class="col-xs-12 col-sm-4 text-center">
@@ -103,6 +104,7 @@
                         <input type="hidden" name="nom" class="nom" value="<?php echo $nom_emetteur?>">
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo $prenom_emetteur?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
+                        <input type="hidden" name="last_tweet" class="last_tweet" value="<?php echo $tweet[0] -> id?>">
                         <input type="submit" value="Beler" >
                     </form>
                 </div>
@@ -144,7 +146,7 @@
                     $nbvote = $goat -> getLikes();
                     if($emetteur != $goat -> parent) $check_rt = true;
                     else $check_rt = false;
-                    $check_vote = tweetTable::checkVoteByIdAndUser($id,$id_user);
+                    $check_vote = voteTable::checkVoteByIdAndUser($id,$id_user);
                 ?>
                     <div class="container-goat">
                         <blockquote class="goat-box">
@@ -210,12 +212,12 @@
                                 <?php
                                     if(!$check_rt){
                                 ?>
-                                        <p class="blog-post-bottom pull-right">
+                                        <p class="vote blog-post-bottom pull-right">
                                         <?php
-                                            if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
-                                            else echo "<a href='?action=addVote&id=$id&redirect=view_profile' class='like glyphicon glyphicon-heart'></a>";
+                                            if($check_vote) echo "<a href='?action=deleteVote&id=$id&redirect=view_profile' class='red like glyphicon glyphicon-heart'>";
+                                            else echo "<a href='?action=addVote&id=$id&redirect=view_profile' class='like glyphicon glyphicon-heart'>";
                                         ?>
-                                            <span class="badge quote-badge"><?php echo $nbvote ?></span>
+                                            <span class="badge quote-badge"><?php echo $nbvote ?></span></a>
                                         <?php
                                             if($goat -> emetteur != $id_user){
                                         ?>

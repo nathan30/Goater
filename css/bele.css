@@ -25,12 +25,12 @@
     text-decoration: none;
 }
 
-.blog-post-bottom a{
+.blog-post-bottom a,.blog-post-bottom a:focus{
     cursor: pointer;
     color:black;
 }
-a.red{
-    color:red;
+a.red,a.red:focus{
+    color:red!important;
 }
 a.like:hover{
     color:red;

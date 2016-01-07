@@ -72,20 +72,7 @@
               return false ;
             return $res ;
         }
-        public function addVoteById($id){
-            $connection = new dbconnection();
-            $sql = "select * from jabaianb.tweet where id='".$id."'";
-            $res = $connection->doQueryObject($sql,'tweet');
 
-            $id_user = context::getSessionAttribute("id");
-            $sql = "INSERT INTO jabaianb.vote (utilisateur, message) VALUES('$id_user','$id')";
-            $resVote = $connection->doExec($sql);
-
-            $nbvote_init = $res[0] -> nbvotes;
-            $nbvote = $nbvote_init + 1;
-            $res[0] -> nbvotes = $nbvote;
-            $res[0] -> save();
-        }
         public function rtTweetById($id){
             $connection = new dbconnection();
             $datePost = date('d-m-Y, H:i:s');
@@ -97,11 +84,5 @@
             $sql = "INSERT INTO jabaianb.tweet (emetteur, parent, post, nbvotes) VALUES('$emetteur','$parent','$id_post','0')";
             $res = $connection->doExec($sql);
         }
-        public function checkVoteByIdAndUser($id,$user){
-            $connection = new dbconnection();
-            $sql = "SELECT * FROM jabaianb.vote where utilisateur = $user AND message = $id";
-            $res = $connection->doQueryObject($sql,'tweet');
-            if($res == false) return false;
-            else return true;
-        }
+
     }

@@ -82,7 +82,7 @@
                         if($goat -> emetteur != $goat -> parent) $check_rt = true;
                         else $check_rt = false;
 
-                        $check_vote = tweetTable::checkVoteByIdAndUser($id,$id_user);
+                        $check_vote = voteTable::checkVoteByIdAndUser($id,$id_user);
                     ?>
                     <div class="container-goat">
                         <blockquote class="goat-box">
@@ -151,12 +151,12 @@
                                     <?php
                                         if(!$check_rt){
                                     ?>
-                                            <p class="blog-post-bottom pull-right">
+                                            <p class="vote blog-post-bottom pull-right">
                                             <?php
-                                                if($check_vote) echo "<a class='red like glyphicon glyphicon-heart'></a>";
-                                                else echo "<a href='?action=addVote&id=$id' class='like glyphicon glyphicon-heart'></a>";
+                                                if($check_vote) echo "<a href='?action=deleteVote&id=$id&redirect=index' class='red like glyphicon glyphicon-heart'>";
+                                                else echo "<a href='?action=addVote&id=$id&redirect=index' class='like glyphicon glyphicon-heart'>";
                                             ?>
-                                                <span class="badge quote-badge"><?php echo $nbvote ?></span>
+                                                <span class="badge quote-badge"><?php echo $nbvote ?></span></a>
                                             <?php
                                                 if($goat -> emetteur != $id_user){
                                             ?>
