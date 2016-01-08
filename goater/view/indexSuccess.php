@@ -19,6 +19,9 @@
     }
 ?>
 <body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 goater-user-left">

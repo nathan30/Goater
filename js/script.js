@@ -15,6 +15,13 @@ $(function(){
 	});
 });
 
+jQuery(window).load(function() {
+	jQuery("#status").fadeOut();
+	jQuery("#preloader").delay(1000).fadeOut("slow");
+})
+
+
+
 //Ajax
 
 // Fonction d'envoi de tweet
@@ -155,7 +162,7 @@ $('.glyphicon-trash').click(function (e) {
     });
 });
 
-// Fonction de vérification des nouveaux tweets goater.php?action=AjaxViewNumberNewTweet
+// Fonction de vérification des nouveaux tweets
 $(document).ready(function(){
     function verifNewtweet(){
         $.ajax({
@@ -171,4 +178,3 @@ $(document).ready(function(){
     }
     verifNewtweet();
 });
-
