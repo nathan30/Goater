@@ -43,6 +43,7 @@ $(function () {
             success : success()
         });
         function success(){
+            $(".container-goat1").hide();
             $( ".container-goat1" ).prepend(
                 '<blockquote class="goat-box">'+
                     '<p class="pull-right">'+
@@ -71,8 +72,8 @@ $(function () {
                         '</p>'+
                     '</div>'+
                 '</blockquote>'
-        );
-
+            );
+            $(".container-goat1").slideDown();
         }
     });
 });
@@ -149,7 +150,25 @@ $('.glyphicon-trash').click(function (e) {
     $.post( "goater.php?action=AjaxDeleteTweet", {
         id: idTweet,
         success : function(){
-            $(thislink).find('.container-goat').hide();
+            $(thislink).parent().parent().parent().slideUp();
         }
     });
 });
+
+// Fonction de vérification des nouveaux tweets goater.php?action=AjaxViewNumberNewTweet
+$(document).ready(function(){
+    function verifNewtweet(){
+        $.ajax({
+            type: "POST",
+            url: "goater.php?action=AjaxViewNumberNewTweet",
+            dataType: 'json',
+            success : function(data){
+                console.log(data.new_tweet);
+                if(data.new_tweet > 0) $('.new_tweet').html(data.new_tweet+' nouveaux tweets').slideDown();
+            }
+    });
+        setTimeout(verifNewtweet,2000);
+    }
+    verifNewtweet();
+});
+

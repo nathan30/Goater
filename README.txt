@@ -18,5 +18,6 @@ Ajout de la fonction like avec addVotebyId($id)
 
 
 TP7 : 
-Ajout des fonctions AjaxGetTweets et AjaxCreateTweet, AjaxGetTweetById (a mettre directement dans l'action)
-Depuis la page goater.php?action=view_profile l'ajax pour l'envoie de tweet fonctionne
+L'AJAX gère désormais l'envoie de tweet, la suppression de tweet, l'ajout de la suppression de vote pour un tweet et la modification de profil
+Toutes les fonctions propres à l'AJAX sont à la fin du mainController.php
+Toutes la partie AJAX est dans js/script.js

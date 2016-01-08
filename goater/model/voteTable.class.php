@@ -15,7 +15,7 @@ class voteTable {
             $res[0] -> save();
         }
         public function delVoteById($id){
-            $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1'); //L3 pour O1a et etd pour 00c
+            $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
             $connection = new dbconnection();
             $sql = "select * from jabaianb.tweet where id=$id";
             $res = $connection->doQueryObject($sql,'tweet');
@@ -29,8 +29,6 @@ class voteTable {
             else $nbvote = $nbvote_init - 1;
             $res[0] -> nbvotes = $nbvote;
             $res[0] -> save();
-
-
         }
         public function checkVoteByIdAndUser($id,$user){
             $connection = new dbconnection();

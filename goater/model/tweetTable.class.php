@@ -84,5 +84,12 @@
             $sql = "INSERT INTO jabaianb.tweet (emetteur, parent, post, nbvotes) VALUES('$emetteur','$parent','$id_post','0')";
             $res = $connection->doExec($sql);
         }
+        public function countTweet(){
+            $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1'); // Utilisation de cette connexion au lieu de dbconnection() pour l'utilisation du fetchColumn();
+            $res = $bdd -> query("SELECT COUNT (*) from jabaianb.tweet")->fetchColumn();
+            if($res === false)
+                return false ;
+            return $res ;
+        }
 
     }

@@ -49,6 +49,7 @@
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo "$prenom_emetteur $nom_emetteur"?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
                         <input class="btn primary-btn goat-bele-submit" type="submit" value="Bêler">
+                        <div class="new_tweet"></div>
                         <hr>
                     </form>
                 <div class="container-goat1"></div>
@@ -125,7 +126,7 @@
                                             $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
                                             $heure = DateTime::createFromFormat('H:i:s',$format_date[1]);
                                             echo $date -> format('l d M ');
-                                            echo $heure -> format('H:i');
+                                            if($heure) echo $heure -> format('H:i');
                                         ?>
                                     </a>
                                 </div>

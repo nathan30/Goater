@@ -64,12 +64,13 @@ class mainController
     }
 
 	public static function index($request,$context){
+        context::setSessionAttribute("nb_tweet_init", tweetTable::countTweet());
         $context->title = "Index";
         if(context::getSessionAttribute("connect") != "true"){
             header('Location:goater.php?action=login');
         }
 
-        $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
+        $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1'); // Utilisation de cette connexion au lieu de dbconnection() pour l'utilisation du fetchColumn();
         $id = context::getSessionAttribute("id");
         $user = utilisateurTable::getUserById($id)[0];
         context::setSessionAttribute("id",$user->id);
@@ -248,6 +249,15 @@ class mainController
     public static function AjaxDeleteTweet($request,$context){
         tweetTable::deleteTweetById($_REQUEST["id"]);
         return context::SUCCESS;
+    }
+    public static function AjaxViewNumberNewTweet($request,$context){
+        $current_tweet = tweetTable::countTweet();
+        $nb_tweet_init = context::getSessionAttribute("nb_tweet_init");
+        if($nb_tweet_init != $current_tweet){
+            $nb_new_tweet = $current_tweet - $nb_tweet_init;
+        }else $nb_new_tweet = 0;
+        echo json_encode(array('new_tweet' => $nb_new_tweet));
+        return context::NONE;
     }
 
 

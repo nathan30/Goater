@@ -48,7 +48,7 @@
                 if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
                     $size = "col-md-6";
             ?>
-                    <form id='form-update' action='?action=view_profile&edit=true' method='POST' enctype="multipart/form-data">
+                    <form id='form-update' action='?action=view_profile&edit=true' method='POST' enctype="multipart/form-data" style="position: relative; top: 10px;">
                         <div class="form-group">
                             <input type="text" placeholder="Prenom" name="prenom_update" id="prenom" required="required" value="<?php echo $prenom ?>">
                         </div>
