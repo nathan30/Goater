@@ -8,54 +8,54 @@ class mainController
     public static function login($request,$context){
         if(isset($request['action'])){
             $context->action = $request['action'];
-            if(isset($request['redirect'])){
-                $context->redirect = $request['redirect'];
-            }
             $context->title = "Login";
+            if(context::getSessionAttribute("connect") == "true"){
+                context::redirect('goater.php');
+            }
         // <!-- ********** GOATER - LOGIN AND REGISTER - PHP ********** -->
-            if($_SERVER['REQUEST_METHOD']==='POST' ){
-                if(isset($request["login-submit"])){
-                    if(isset($request["login"]) && isset($request["password"])){
-                        if($res = utilisateurTable::getUserByLoginAndPass($request["login"],$request["password"])){
-                            foreach($res as $r) {
-                                $id = $r["id"];
-                            }
-                            context::setSessionAttribute("id",$id);
-                            context::setSessionAttribute("connect","true");
-                            if(isset($request['redirect'])){
-                                echo '<script language="javascript" type="text/javascript">
-                                window.location.replace("goater.php?action='.$context->redirect.'&id=1");
-                              </script>';
-                            }
-                            else{
-                                echo '<script language="javascript" type="text/javascript">
-                                window.location.replace("goater.php");
-                              </script>';
-                            }
+            if(isset($request["login-submit"])){
+                if(isset($request["login"]) && isset($request["password"])){
+                    echo 'bb';
+                    if($res = utilisateurTable::getUserByLoginAndPass($request["login"],$request["password"])){
+                        echo 'a';
+                        foreach($res as $r) {
+                            $id = $r["id"];
+                        }
+                        context::setSessionAttribute("id",$id);
+                        context::setSessionAttribute("connect","true");
+                        if(isset($request['redirect'])){
+                            echo '<script language="javascript" type="text/javascript">
+                            window.location.replace("goater.php?action='.$context->redirect.'&id=1");
+                          </script>';
                         }
                         else{
-                            echo "<p class='goat-login-error'>Couple incorrect</p>";
+                            echo '<script language="javascript" type="text/javascript">
+                            window.location.replace("goater.php");
+                          </script>';
                         }
                     }
-                }
-                if(isset($request["register-submit"])){
-                    $prenom = $request["prenom"];
-                    $nom = $request["nom"];
-                    $login = $request["login"];
-                    $password = sha1($request["password"]);
-                    // ********** GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
-                    include 'goater/tools/upload_image.php';
-                    // ********** END GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
-                    // ********** GOATER - LOGIN AND REGISTER - PHP - ADD IN DATABASE **********
-                    if($uploadOk == 1){
-                        $new_user = new utilisateur();
-                        $new_user -> avatar = $target_file;
-                        $new_user -> identifiant = $login;
-                        $new_user -> pass = $password;
-                        $new_user -> nom = $nom;
-                        $new_user -> prenom = $prenom;
-                        $new_user -> save();
+                    else{
+                        echo "<p class='goat-login-error'>Couple incorrect</p>";
                     }
+                }
+            }
+            if(isset($request["register-submit"])){
+                $prenom = $request["prenom"];
+                $nom = $request["nom"];
+                $login = $request["login"];
+                $password = sha1($request["password"]);
+                // ********** GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
+                include 'goater/tools/upload_image.php';
+                // ********** END GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
+                // ********** GOATER - LOGIN AND REGISTER - PHP - ADD IN DATABASE **********
+                if($uploadOk == 1){
+                    $new_user = new utilisateur();
+                    $new_user -> avatar = $target_file;
+                    $new_user -> identifiant = $login;
+                    $new_user -> pass = $password;
+                    $new_user -> nom = $nom;
+                    $new_user -> prenom = $prenom;
+                    $new_user -> save();
                 }
             }
         // <!-- ********** END GOATER - LOGIN AND REGISTER - PHP ********** -->

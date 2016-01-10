@@ -1,7 +1,5 @@
 <?php
-    if(context::getSessionAttribute("connect")){
-        context::redirect("goater.php");
-    }
+
 ?>
 <body id="goater-index">
     <div class="container-fluid">
