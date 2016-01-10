@@ -1,6 +1,6 @@
 <?php
 // <!-- ********** GOATER - RETRIEVE DATA ********** -->
-    if(isset($_REQUEST["pseudo"])){
+    if(isset($request["pseudo"])){
         $nom = $context->nom;
         $prenom = $context->prenom;
         $identifiant = $context->identifiant;
@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-md-4">
                 <?php
-                if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
+                if(isset($request["edit"]) && $request["edit"] == "true" && !isset($request["pseudo"])){
                     $size = "col-md-6";
             ?>
                     <form id='form-update' action='?action=view_profile&edit=true' method='POST' enctype="multipart/form-data" style="position: relative; top: 10px;">
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <form id="form-tweet" action="?action=view_profile" method="POST" enctype="multipart/form-data">
-                        <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required><?php if(isset($_REQUEST["pseudo"]))echo "@$identifiant ";?></textarea>
+                        <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required><?php if(isset($request["pseudo"]))echo "@$identifiant ";?></textarea>
                         <input type="hidden" name="identifiant" class="identifiant"value="<?php echo $identifiant_emetteur?>">
                         <input type="hidden" name="nom" class="nom" value="<?php echo $nom_emetteur?>">
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo $prenom_emetteur?>">

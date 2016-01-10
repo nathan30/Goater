@@ -4,7 +4,7 @@
             return postTable::getPostById($this->post);
         }
         function getParent(){
-            return  $this->data['parent'];
+            return  $this->parent;
         }
         function getLikes(){
             return $this->nbvotes;

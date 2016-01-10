@@ -6,23 +6,23 @@
 class mainController
 {
     public static function login($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
-            if(isset($_REQUEST['redirect'])){
-                $context->redirect = $_REQUEST['redirect'];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
+            if(isset($request['redirect'])){
+                $context->redirect = $request['redirect'];
             }
             $context->title = "Login";
         // <!-- ********** GOATER - LOGIN AND REGISTER - PHP ********** -->
             if($_SERVER['REQUEST_METHOD']==='POST' ){
-                if(isset($_POST["login-submit"])){
-                    if(isset($_POST["login"]) && isset($_POST["password"])){
-                        if($res = utilisateurTable::getUserByLoginAndPass($_POST["login"],$_POST["password"])){
+                if(isset($request["login-submit"])){
+                    if(isset($request["login"]) && isset($request["password"])){
+                        if($res = utilisateurTable::getUserByLoginAndPass($request["login"],$request["password"])){
                             foreach($res as $r) {
                                 $id = $r["id"];
                             }
                             context::setSessionAttribute("id",$id);
                             context::setSessionAttribute("connect","true");
-                            if(isset($_REQUEST['redirect'])){
+                            if(isset($request['redirect'])){
                                 echo '<script language="javascript" type="text/javascript">
                                 window.location.replace("goater.php?action='.$context->redirect.'&id=1");
                               </script>';
@@ -38,11 +38,11 @@ class mainController
                         }
                     }
                 }
-                if(isset($_POST["register-submit"])){
-                    $prenom = $_POST["prenom"];
-                    $nom = $_POST["nom"];
-                    $login = $_POST["login"];
-                    $password = sha1($_POST["password"]);
+                if(isset($request["register-submit"])){
+                    $prenom = $request["prenom"];
+                    $nom = $request["nom"];
+                    $login = $request["login"];
+                    $password = sha1($request["password"]);
                     // ********** GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
                     include 'goater/tools/upload_image.php';
                     // ********** END GOATER - LOGIN AND REGISTER - PHP - IMAGE TRANSFER **********
@@ -67,7 +67,7 @@ class mainController
         context::setSessionAttribute("nb_tweet_init", tweetTable::countTweet());
         $context->title = "Index";
         if(context::getSessionAttribute("connect") != "true"){
-            header('Location:goater.php?action=login');
+            context::redirect("goater.php?action=login");
         }
 
         $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1'); // Utilisation de cette connexion au lieu de dbconnection() pour l'utilisation du fetchColumn();
@@ -81,8 +81,8 @@ class mainController
         context::setSessionAttribute("avatar",$user->avatar);
         context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
 
-        if(isset($_POST["tweet"])){
-            tweetTable::sendTweet($_POST["tweet"]);
+        if(isset($request["tweet"])){
+            tweetTable::sendTweet($request["tweet"]);
         }
 
 		return context::SUCCESS;
@@ -90,20 +90,20 @@ class mainController
 
     public static function view_profile($request,$context){
         if(context::getSessionAttribute("connect") != "true"){
-            header('Location:goater.php?action=login');
+            context::redirect("goater.php?action=login");
         }
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
             $context->title = "Profil";
             $id = context::getSessionAttribute("id");
             $bdd = new PDO('pgsql:host=localhost dbname=etd user=uapv1402577 password=jenYv1');
-            if(isset($_REQUEST["pseudo"])){
-                if(utilisateurTable::getUserByPseudo($_REQUEST["pseudo"]) == false){
+            if(isset($request["pseudo"])){
+                if(!utilisateurTable::getUserByPseudo($request["pseudo"])){
                     echo '<script language="javascript" type="text/javascript">
                             window.location.replace("goater.php?action=erreur_404");
                           </script>';
                 }
-                $context->pseudo_url = $_REQUEST["pseudo"];
+                $context->pseudo_url = $request["pseudo"];
                 $user = utilisateurTable::getUserByPseudo($context->pseudo_url)[0];
                 $context->nom = $user->nom;
                 $context->prenom = $user->prenom;
@@ -122,11 +122,11 @@ class mainController
                 context::setSessionAttribute("statut",$user->statut);
                 context::setSessionAttribute("avatar",$user->avatar);
                 context::setSessionAttribute("nb_tweet",$bdd -> query("SELECT COUNT (*) from jabaianb.tweet where emetteur=$user->id")->fetchColumn());
-                if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
-                    if(isset($_POST["statut_update"]) && isset($_POST["nom_update"]) && isset($_POST["prenom_update"])){
-                        $statut_update = $_POST["statut_update"];
-                        $prenom_update = $_POST["prenom_update"];
-                        $nom_update = $_POST["nom_update"];
+                if(isset($request["edit"]) && $request["edit"] == "true" && !isset($request["pseudo"])){
+                    if(isset($request["statut_update"]) && isset($request["nom_update"]) && isset($request["prenom_update"])){
+                        $statut_update = $request["statut_update"];
+                        $prenom_update = $request["prenom_update"];
+                        $nom_update = $request["nom_update"];
                         include 'goater/tools/upload_image.php';
                             if($uploadOk == 1){
                                 $user -> avatar = $target_file;
@@ -142,99 +142,99 @@ class mainController
                     }
                 }
             }
-            if(isset($_POST["tweet"])){
-                tweetTable::sendTweet();
+            if(isset($request["tweet"])){
+                tweetTable::sendTweet($request["tweet"]);
             }
 
         }
 		return context::SUCCESS;
 	}
     public static function liste_user($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
             $context->title = "Liste";
         }
 		return context::SUCCESS;
 	}
     public static function disconnect($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
             $context->title = "Déconnexion";
         }
 		return context::SUCCESS;
 	}
     public static function erreur_404($requet,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
             $context->title = "Erreur 404";
         }
         return context::SUCCESS;
     }
     public static function delete_tweet($request,$context){
-        $id = $_REQUEST["id"];
+        $id = $request["id"];
         tweetTable::deleteTweetById($id);
         return context::SUCCESS;
     }
     public static function share_tweet($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
             $context->title = "Partage de Tweet";
-            if(isset($_REQUEST["id"])){
-                $context -> tweet_share = tweetTable::getTweetById($_REQUEST["id"]);
+            if(isset($request["id"])){
+                $context -> tweet_share = tweetTable::getTweetById($request["id"]);
             }
         }
         return context::SUCCESS;
     }
     public static function search($request,$context){
-        if(isset($_REQUEST['action'])){
-            $context->action = $_REQUEST['action'];
-            $context->title = $_REQUEST["q"];
+        if(isset($request['action'])){
+            $context->action = $request['action'];
+            $context->title = $request["q"];
         }
         return context::SUCCESS;
     }
     public static function addVote($request,$context){
-        if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
-            voteTable::addVoteById($_REQUEST["id"]);
+        if(isset($request['action']) && isset($request['id'])){
+            voteTable::addVoteById($request["id"]);
         }
         return context::SUCCESS;
     }
     public static function deleteVote($request,$context){
-        if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
-            voteTable::delVoteById($_REQUEST["id"]);
+        if(isset($request['action']) && isset($request['id'])){
+            voteTable::delVoteById($request["id"]);
         }
         return context::SUCCESS;
     }
     public static function rtTweet($request,$context){
-        if(isset($_REQUEST['action']) && isset($_REQUEST['id'])){
-            tweetTable::rtTweetById($_REQUEST["id"]);
+        if(isset($request['action']) && isset($request['id'])){
+            tweetTable::rtTweetById($request["id"]);
             echo '<script language="javascript" type="text/javascript">
                     window.location.replace("goater.php");
                   </script>';
         }
-        return context::SUCCESS;
+        return context::NONE;
     }
 
 
     //Fonction AJAX
 
     public static function AjaxCreateTweet($request,$context){
-        tweetTable::sendTweet();
+        tweetTable::sendTweet($request["tweet"]);
         return context::NONE;
     }
     public static function AjaxLikeTweet($request,$context){
-        voteTable::addVoteById($_REQUEST["id"]);
+        voteTable::addVoteById($request["id"]);
         return context::NONE;
     }
     public static function AjaxDeleteLikeTweet($request,$context){
-        voteTable::delVoteById($_REQUEST["id"]);
+        voteTable::delVoteById($request["id"]);
         return context::NONE;
     }
     public static function AjaxUpdateProfil($request,$context){
-        if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
-            if(isset($_POST["statut_update"]) && isset($_POST["nom_update"]) && isset($_POST["prenom_update"])){
-                $statut_update = $_POST["statut_update"];
-                $prenom_update = $_POST["prenom_update"];
-                $nom_update = $_POST["nom_update"];
+        if(isset($request["edit"]) && $request["edit"] == "true" && !isset($request["pseudo"])){
+            if(isset($request["statut_update"]) && isset($request["nom_update"]) && isset($request["prenom_update"])){
+                $statut_update = $request["statut_update"];
+                $prenom_update = $request["prenom_update"];
+                $nom_update = $request["nom_update"];
                 $id = context::getSessionAttribute("id");
 
                 $user = utilisateurTable::getUserById($id)[0];
@@ -247,7 +247,7 @@ class mainController
         return context::NONE;
     }
     public static function AjaxDeleteTweet($request,$context){
-        tweetTable::deleteTweetById($_REQUEST["id"]);
+        tweetTable::deleteTweetById($request["id"]);
         return context::SUCCESS;
     }
     public static function AjaxViewNumberNewTweet($request,$context){

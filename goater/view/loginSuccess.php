@@ -1,6 +1,6 @@
 <?php
-    if(context::getSessionAttribute("connect") == "true"){
-        header('Location:goater.php');
+    if(context::getSessionAttribute("connect")){
+        context::redirect("goater.php");
     }
 ?>
 <body id="goater-index">
@@ -44,17 +44,9 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-							    <?php
-                                    if(isset($_REQUEST['redirect'])){
-                                        $action = "?action=login&redirect=$context->redirect&id=1";
-                                    }
-                                    else{
-                                        $action = "?action=login";
-                                    }
-                                ?>
-								<form id="login-form" action='<?php echo $action?>' method="post" role="form" style="display: block;">
+								<form id="login-form" action='?action=login' method="post" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($_POST["login"])) echo $_POST["login"]; ?>">
+										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($request["login"])) echo $request["login"]; ?>">
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
@@ -73,16 +65,16 @@
 								</form>
 								<form id="register-form" action="?action=login" method="POST" role="form" enctype="multipart/form-data" style="display:none;">
                                     <div class="form-group">
-								        <input type="text" placeholder="Prenom" name="prenom" id="prenom" required="required" value="<?php if (isset($_POST["prenom"])) echo $_POST["prenom"]; ?>">
+								        <input type="text" placeholder="Prenom" name="prenom" id="prenom" required="required" value="<?php if (isset($request["prenom"])) echo $request["prenom"]; ?>">
                                     </div>
                                     <div class="form-group">
-								        <input type="text" placeholder="Nom" name="nom" id="nom" required="required" value="<?php if (isset($_POST["nom"])) echo $_POST["nom"]; ?>">
+								        <input type="text" placeholder="Nom" name="nom" id="nom" required="required" value="<?php if (isset($request["nom"])) echo $request["nom"]; ?>">
                                     </div>
                                     <div class="form-group">
                                         <input type="file" name="avatar" id="avatar">
                                     </div>
 									<div class="form-group">
-										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($_POST["login"])) echo $_POST["login"]; ?>" required="required">
+										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Username" value="<?php if (isset($request["login"])) echo $request["login"]; ?>" required="required">
                                     </div>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required="required">

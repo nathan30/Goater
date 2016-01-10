@@ -1,4 +1,4 @@
 <?php
     context::setSessionAttribute("connect","false");
-    header('Location:?action=login');
+    context::redirect("?action=login");
 ?>

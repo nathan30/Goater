@@ -32,23 +32,24 @@
               return false ;
             return $res ;
         }
-        public function sendTweet(){
+        public function sendTweet($tweet_message){
             $connection = new dbconnection();
             $datePost = date('d-m-Y, H:i:s');
+            $id = context::getSessionAttribute("id");
             include 'goater/tools/upload_image.php';
             $uploadOk = 1;
             if($uploadOk == 1){
-                $sql = "INSERT INTO jabaianb.post (texte, date,image) VALUES('".$_REQUEST['tweet']."','".$datePost."','".$_REQUEST['image']."')";
+                $sql = "INSERT INTO jabaianb.post (texte, date,image) VALUES('$tweet_message','$datePost','".$request['image']."')";
             }
             else{
-                $sql = "INSERT INTO jabaianb.post (texte, date) VALUES('".$_REQUEST['tweet']."','".$datePost."')";
+                $sql = "INSERT INTO jabaianb.post (texte, date) VALUES('$tweet_message','$datePost')";
             }
             $res = $connection->doExec($sql);
 
-            $sql = "SELECT * FROM jabaianb.post WHERE date='".$datePost."'";
+            $sql = "SELECT * FROM jabaianb.post WHERE date='$datePost'";
             $resPost = $connection->doQueryObject($sql, 'post');
 
-            $sql = "INSERT INTO jabaianb.tweet (emetteur, parent, post, nbvotes) VALUES('".$_SESSION['id']."','".$_SESSION['id']."','".$resPost[0]->id."','0')";
+            $sql = "INSERT INTO jabaianb.tweet (emetteur, parent, post, nbvotes) VALUES('$id','$id','".$resPost[0]->id."','0')";
             $res2 = $connection->doExec($sql);
 
             $sql = "SELECT * FROM jabaianb.tweet WHERE post='".$resPost[0]->id."'";

@@ -1,8 +1,8 @@
 <?php
-    if($_REQUEST["redirect"] == "view_profile"){
-        header('location:?action=view_profile');
+   if($_REQUEST["redirect"] == "view_profile"){
+        context::redirect("?action=view_profile");
     }
     else{
-        header('location:goater.php');
+        context::redirect('goater.php');
     }
 ?>
