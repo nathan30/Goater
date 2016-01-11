@@ -1,6 +1,7 @@
 <?php
 // <!-- ********** GOATER - RETRIEVE DATA ********** -->
-    if(isset($request["pseudo"])){
+    if(isset($_REQUEST["pseudo"])){
+        echo "a";
         $nom = $context->nom;
         $prenom = $context->prenom;
         $identifiant = $context->identifiant;
@@ -45,7 +46,7 @@
         <div class="row">
             <div class="col-md-4">
                 <?php
-                if(isset($request["edit"]) && $request["edit"] == "true" && !isset($request["pseudo"])){
+                if(isset($_REQUEST["edit"]) && $_REQUEST["edit"] == "true" && !isset($_REQUEST["pseudo"])){
                     $size = "col-md-6";
             ?>
                     <form id='form-update' action='?action=view_profile&edit=true' method='POST' enctype="multipart/form-data" style="position: relative; top: 10px;">
@@ -99,13 +100,25 @@
                         </div>
                     </div>
                     <form id="form-tweet" action="?action=view_profile" method="POST" enctype="multipart/form-data">
-                        <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required><?php if(isset($request["pseudo"]))echo "@$identifiant ";?></textarea>
                         <input type="hidden" name="identifiant" class="identifiant"value="<?php echo $identifiant_emetteur?>">
                         <input type="hidden" name="nom" class="nom" value="<?php echo $nom_emetteur?>">
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo $prenom_emetteur?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
                         <input type="hidden" name="last_tweet" class="last_tweet" value="<?php echo $tweet[0] -> id?>">
-                        <input type="submit" value="Beler" >
+                        <textarea id="textarea" name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required></textarea>
+                        <input id="submit" type="submit" value="Beler" >
+                        <?php
+                            if(isset($_REQUEST["pseudo"])){
+                        ?>
+                            <script>
+                                var submit = document.getElementById("submit");
+                                var textarea = document.getElementById("textarea");
+                                submit.className = submit.className + " hidden-profile";
+                                textarea.className = textarea.className + " hidden-profile";
+                            </script>
+                        <?php
+                            }
+                        ?>
                     </form>
                 </div>
             </div>
@@ -186,7 +199,7 @@
                                             $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
                                             $heure = DateTime::createFromFormat('H:i:s',$format_date[1]);
                                             echo $date -> format('l d M ');
-                                            echo $heure -> format('H:i');
+                                            if($heure) echo $heure -> format('H:i');
                                         ?>
                                     </a>
                                 </div>
