@@ -15,9 +15,7 @@ class mainController
         // <!-- ********** GOATER - LOGIN AND REGISTER - PHP ********** -->
             if(isset($request["login-submit"])){
                 if(isset($request["login"]) && isset($request["password"])){
-                    echo 'bb';
                     if($res = utilisateurTable::getUserByLoginAndPass($request["login"],$request["password"])){
-                        echo 'a';
                         foreach($res as $r) {
                             $id = $r["id"];
                         }

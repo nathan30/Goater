@@ -1,6 +1,3 @@
-<?php
-
-?>
 <body id="goater-index">
     <div class="container-fluid">
         <!-- ********** GOATER - ERRORS ********** -->

@@ -13,8 +13,10 @@
     <?php
         echo $context->title;
         $avatar = context::getSessionAttribute("avatar");
+        if (strpos($avatar,'http') !== false) $check_image = true;
+            else $check_image = false;
         if($avatar == "" || file_exists($avatar) != true){
-            $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
+             if($check_image == false) $avatar = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
         }
     ?>
 </title>

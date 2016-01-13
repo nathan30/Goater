@@ -25,7 +25,7 @@ class voteTable {
             $resVote = $connection->doExec($sql);
 
             $nbvote_init = $res[0] -> nbvotes;
-            if($nbvote_init == 1) $update = $bdd -> query("UPDATE jabaianb.tweet set nbvotes='0'");
+            if($nbvote_init == 1) $update = $bdd -> query("UPDATE jabaianb.tweet set nbvotes='0'"); // Ligne obligatoire car sinon quand $nbvote_init = 1 la table ne se met pas à jour avec nbvote = 0
             else $nbvote = $nbvote_init - 1;
             $res[0] -> nbvotes = $nbvote;
             $res[0] -> save();

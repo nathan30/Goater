@@ -1,7 +1,6 @@
 <?php
 // <!-- ********** GOATER - RETRIEVE DATA ********** -->
     if(isset($_REQUEST["pseudo"])){
-        echo "a";
         $nom = $context->nom;
         $prenom = $context->prenom;
         $identifiant = $context->identifiant;
@@ -159,7 +158,8 @@
                     $nbvote = $goat -> getLikes();
                     if($emetteur != $goat -> parent) $check_rt = true;
                     else $check_rt = false;
-                    $check_vote = voteTable::checkVoteByIdAndUser($id,$id_user);
+                    $mon_id = context::getSessionAttribute("id");
+                    $check_vote = voteTable::checkVoteByIdAndUser($id,$mon_id);
                 ?>
                     <div class="container-goat">
                         <blockquote class="goat-box">
