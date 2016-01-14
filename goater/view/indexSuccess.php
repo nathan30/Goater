@@ -21,8 +21,8 @@
     }
 ?>
 <body>
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
+    <div class="se-pre-con">
+        <p class="text-load">Patience, le site (et les images) chargent...</p>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -66,9 +66,6 @@
                         $emetteur_info = utilisateurTable::getuserById($goat -> emetteur);
                         $post_emetteur = $goat->getPost();
                         $post_image = $post_emetteur[0] -> image;
-                        if($post_image != "" && !file_exists($post_image)){
-                            $post_image = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/goat.png";
-                        }
                         if(isset($parent_info[0])){
                             $pseudo_parent = $parent_info[0] -> identifiant;
                             $prenom_parent = $parent_info[0] -> prenom;
@@ -80,6 +77,12 @@
 
                             if($avatar_parent == "" || !file_exists($avatar_parent)){
                                 if($check_image == false) $avatar_parent = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/default.png";
+                            }
+                            if (strpos($post_image,'http') !== false) $check_post_image = true;
+                            else $check_post_image = false;
+
+                            if($post_image == "" || !file_exists($post_image)){
+                                if($check_post_image == false) $post_image = "https://pedago02a.univ-avignon.fr/~uapv1402577/mvc/images/goat.png";
                             }
                             $check = true;
                         }
@@ -123,7 +126,13 @@
                                     <p class="goat-text">
                                         <?php echo $post_emetteur[0] -> texte ?>
                                     </p>
-                                    <img src="<?php echo $post_image; ?>" class="img-responsive">
+                                    <?php
+                                        if($check_post_image){
+                                    ?>
+                                            <img src="<?php echo "$post_image"; ?>" class="img-responsive">
+                                    <?php
+                                        }
+                                    ?>
                                     <a href="?action=share_tweet&id=<?php echo $id?>" class="goat-time">
                                         <?php
                                             $date_post = $post_emetteur[0] -> date;

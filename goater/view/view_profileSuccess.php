@@ -104,7 +104,7 @@
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo $prenom_emetteur?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
                         <input type="hidden" name="last_tweet" class="last_tweet" value="<?php echo $tweet[0] -> id?>">
-                        <textarea id="textarea" name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required></textarea>
+                        <textarea id="tweet" name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required></textarea>
                         <input id="submit" type="submit" value="Beler" >
                         <?php
                             if(isset($_REQUEST["pseudo"])){

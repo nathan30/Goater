@@ -6,9 +6,8 @@
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
     <?php
-        if(isset($_POST["search_user"])) $liste_user = utilisateurTable::getUserByFirstNameOrLastName($_POST["search_user"]);
-        else $liste_user = utilisateurTable::getUsers();
-        foreach($liste_user as $user){
+
+        foreach($context->liste_user as $user){
             $nom = $user->nom;
             $prenom = $user->prenom;
             $identifiant= $user->identifiant;

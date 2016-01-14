@@ -151,6 +151,8 @@ class mainController
         if(isset($request['action'])){
             $context->action = $request['action'];
             $context->title = "Liste";
+            if(isset($_POST["search_user"])) $context->liste_user = utilisateurTable::getUserByFirstNameOrLastName($_POST["search_user"]);
+            else $context->liste_user = utilisateurTable::getUsers();
         }
 		return context::SUCCESS;
 	}

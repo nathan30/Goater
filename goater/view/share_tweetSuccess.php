@@ -45,7 +45,7 @@
                     $date = DateTime::createFromFormat('Y-m-d', $format_date[0]);
                     $heure = DateTime::createFromFormat('H:i:s',$format_date[1]);
                     echo $date -> format('l d M ');
-                    echo $heure -> format('H:i');
+                    if($heure) echo $heure -> format('H:i');
                 }
             ?>
         </a>

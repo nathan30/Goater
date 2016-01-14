@@ -16,28 +16,26 @@ body {
 .thumbnail{
     width:20%;
 }
-#preloader  {
-     position: absolute;
-     top: 0;
-     left: 0;
-     right: 0;
-     bottom: 0;
-     background-color: #fefefe;
-     z-index: 99;
-    height: 100%;
- }
-
-#status  {
-     width: 200px;
-     height: 200px;
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     background-image: url(../images/loader.gif);
-     background-repeat: no-repeat;
-     background-position: center;
-     margin: -100px 0 0 -100px;
- }
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background:  url(../images/loader.gif) center no-repeat #fff;
+}
+.se-pre-con p{
+    position: fixed;
+	left: 0px;
+	top: 55%;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+    text-align: center;
+}
 
 .hidden-profile{
     visibility: hidden;
@@ -344,10 +342,7 @@ li.active{
         margin-top:-11px;
     }
     .goater-header{
-        display: block;
-        color:white;
-        font-size: 35px;
-        font-family: "story";
+        display: none;
     }
     .navbar-default{
         background-color: rgba(0,0,0,1)!important;

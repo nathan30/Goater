@@ -16,8 +16,7 @@ $(function(){
 });
 
 jQuery(window).load(function() {
-	jQuery("#status").fadeOut();
-	jQuery("#preloader").delay(1000).fadeOut("slow");
+	$(".se-pre-con").fadeOut("slow");
 })
 
 
@@ -30,7 +29,7 @@ $(function () {
         // On empêche le navigateur de soumettre le formulaire
         e.preventDefault();
 
-        var tweet_val = $('textarea').val();
+        var tweet_val = $('#tweet').val();
         var identifiant = $('.identifiant').val();
         var nom = $('.nom').val();
         var prenom = $('.prenom').val();
@@ -44,11 +43,11 @@ $(function () {
         var minutes = ["01","02","03","04","05","06","07","08","09","10","11","12","13","14","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30",
                        "31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60"];
 
-
         $.post( "goater.php?action=AjaxCreateTweet", {
             tweet: tweet_val,
             success : success()
         });
+
         function success(){
             $(".container-goat1").hide();
             $( ".container-goat1" ).prepend(
@@ -85,7 +84,7 @@ $(function () {
     });
 });
 
-// Fonction d'ajout de vote
+// Fonction d'ajout/suppression de vote
 
 $('.like').click(function (e) {
     // On empêche le navigateur d'effectuer l'action du <a>
@@ -153,7 +152,6 @@ $('.glyphicon-trash').click(function (e) {
 
     var idTweet = $(this).attr("href").match(/id=([0-9]+)/)[1];
     var thislink = $(this);
-    console.log(idTweet);
     $.post( "goater.php?action=AjaxDeleteTweet", {
         id: idTweet,
         success : function(){
@@ -171,7 +169,10 @@ $(document).ready(function(){
             dataType: 'json',
             success : function(data){
                 console.log(data.new_tweet);
-                if(data.new_tweet > 0) $('.new_tweet').html(data.new_tweet+' nouveaux tweets').slideDown();
+                if(data.new_tweet > 0){
+                    if(data.new_tweet == 1) $('.new_tweet').html(data.new_tweet+' nouveau tweet').slideDown();
+                    else $('.new_tweet').html(data.new_tweet+' nouveaux tweets').slideDown();
+                }
             }
     });
         setTimeout(verifNewtweet,2000);
