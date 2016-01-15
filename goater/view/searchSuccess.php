@@ -56,7 +56,7 @@
                         if(!$check_rt){
                     ?>
                             <p class="pull-right">
-                                <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+                                <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash"></a>
                             </p>
 
                     <?php

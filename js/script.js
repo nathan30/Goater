@@ -17,6 +17,8 @@ $(function(){
 
 jQuery(window).load(function() {
 	$(".se-pre-con").fadeOut("slow");
+    $(".popup_success").hide();
+    $(".popup_error").hide();
 })
 
 
@@ -80,6 +82,8 @@ $(function () {
                 '</blockquote>'
             );
             $(".container-goat1").slideDown();
+            $(".popup_error").hide();
+            $(".popup_success").html("<p>Tweet envoyé avec succès</p>").fadeIn().delay(3000).fadeOut();
         }
     });
 });
@@ -109,11 +113,15 @@ $('.like').click(function (e) {
                 $(thislink).addClass("red");
                 nbVote++;
                 $(thislink,'span').html("<span class='badge quote-badge'>"+nbVote+"</span></a>");
+                $(".popup_error").hide();
+                $(".popup_success").html("<p>Vote ajouté avec succès</p>").fadeIn().delay(3000).fadeOut();
             }
             else if(action == 'delete'){
                 $(thislink).removeClass("red");
                 nbVote--;
                 $(thislink,'span').html("<span class='badge quote-badge'>"+nbVote+"</span></a>");
+                $(".popup_success").hide();
+                $(".popup_error").html("<p>Vote supprimé avec succès</p>").fadeIn().delay(3000).fadeOut();
             }
         }
     });
@@ -141,6 +149,7 @@ $(function () {
                 $('#statut_form').html(statut);
                 $('#form-update').hide();
                 $('.bigger').addClass('col-md-offset-2 col-md-8').removeClass('col-md-6');
+                $(".popup_success").html("<p>Profil modifié avec succès</p>").fadeIn().delay(3000).fadeOut();
             }
         });
     });
@@ -152,12 +161,19 @@ $('.glyphicon-trash').click(function (e) {
 
     var idTweet = $(this).attr("href").match(/id=([0-9]+)/)[1];
     var thislink = $(this);
-    $.post( "goater.php?action=AjaxDeleteTweet", {
-        id: idTweet,
-        success : function(){
-            $(thislink).parent().parent().parent().slideUp();
-        }
-    });
+    if(confirm('Etes-vous sûr de vouloir supprimer ce goat ?')){
+        $.post( "goater.php?action=AjaxDeleteTweet", {
+            id: idTweet,
+            success : function(){
+                $(thislink).parent().parent().parent().slideUp();
+            }
+        });
+        $(".popup_error").hide();
+        $(".popup_success").html("<p>Tweet supprimé avec succès</p>").fadeIn().delay(3000).fadeOut();
+    }else{
+        $(".popup_success").hide();
+        $(".popup_error").html("<p>Action interrompue par l'utilisateur</p>").fadeIn().delay(3000).fadeOut();
+    }
 });
 
 // Fonction de vérification des nouveaux tweets
@@ -170,8 +186,8 @@ $(document).ready(function(){
             success : function(data){
                 console.log(data.new_tweet);
                 if(data.new_tweet > 0){
-                    if(data.new_tweet == 1) $('.new_tweet').html(data.new_tweet+' nouveau tweet').slideDown();
-                    else $('.new_tweet').html(data.new_tweet+' nouveaux tweets').slideDown();
+                    if(data.new_tweet == 1) $('.new_tweet').html(data.new_tweet+' nouveau tweet');
+                    else $('.new_tweet').html(data.new_tweet+' nouveaux tweets');
                 }
             }
     });

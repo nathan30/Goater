@@ -23,6 +23,8 @@
 </head>
 
 <body>
+   <div class="popup_success"></div>
+   <div class="popup_error"></div>
     <header class="row">
         <!-- ********** GOATER - MENU ********** -->
         <nav class="navbar navbar-default navbar-fixed-top">

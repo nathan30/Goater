@@ -233,7 +233,7 @@ li.active{
     background-repeat: no-repeat;
     background-size: 100%;
     height: 95px;
-    widows: 100%;
+    width: 100%;
 }
 .goater-user-left{
     border:1px solid grey;

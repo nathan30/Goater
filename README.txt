@@ -19,6 +19,8 @@ Fonctionnalitées supplémentaires :
 	- Erreur 404 pour la recherche d'un pseudo inexistant via l'url (par exemple)
 	- Partage de tweets en cliquant sur l'heure d'un tweet (redirige vers une page affichant seulement ce tweet) 
 	- Possibilité de RT un tweet, l'affichage du nouveau tweet créée est modifier afin d'afficher le pseudo de la personne ayant RT
+	- Ajout d'une popup de notification de succès ou d'erreur (Tweet envoyé, profil mis à jour, tweet supprimé,ajout/suppression de vote)
+	  dans le layout.php. Cette popup disparait automatiquement après quelques secondes
 
 Autres infos : 
 	- Le login et l'inscription sont réunis sur la même page (?action=login)
@@ -29,4 +31,4 @@ Autres infos :
 	- Un loader est affiché avant que la page index (qui liste tout les tweet) soit affiché. Cela peut être long en fonction des images
 	- Lors de la connexion, l'avatar de l'utilisateur est affiché sur la droite du menu. En cliquant dessus il est possible d'afficher,
 	  de modifier le profil ou encore de se deconnecter
-	-	
+	- Le site est responsive (Affichage d'un background différent sur mobile, certains élements sont modifiés ou enlevés)

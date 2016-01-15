@@ -215,7 +215,7 @@ class mainController
     }
 
 
-    //Fonction AJAX
+    //Fonctions AJAX
 
     public static function AjaxCreateTweet($request,$context){
         tweetTable::sendTweet($request["tweet"]);

@@ -27,7 +27,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 goater-user-left">
-                <a class="image-cover" style="background-image: url(<?php echo $avatar?>);">
+<!--                <a class="image-cover" style="background-image: url(<?php echo $avatar?>);">-->
+                <img src="<?php echo $avatar ?>" class="img-responsive">
 
                 </a>
                 <div class="goater-pseudo">
@@ -49,7 +50,7 @@
             </div>
             <div class="col-sm-9">
                 <form id="form-tweet" class="form_bele" action="goater.php" method="POST">
-                        <textarea name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required></textarea>
+                        <textarea id="tweet" name="tweet" rows="3" class="form-control" maxlength="140" style="resize:none" placeholder="Quoi de neuf ?" required></textarea>
                         <input type="hidden" name="identifiant" class="identifiant"value="<?php echo $identifiant_emetteur?>">
                         <input type="hidden" name="prenom" class="prenom" value="<?php echo "$prenom_emetteur $nom_emetteur"?>">
                         <input type="hidden" name="avatar" class="avatar" value="<?php echo $avatar_emetteur?>">
@@ -116,7 +117,7 @@
                                     if(!$check_rt){
                                 ?>
                                         <p class="pull-right">
-                                            <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce goat ?'));"></a>
+                                            <a href="?action=delete_tweet&id=<?php echo $id ?>&redirect=index" class="glyphicon glyphicon-trash" ></a>
                                         </p>
 
                                 <?php
