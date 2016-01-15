@@ -21,16 +21,9 @@ class mainController
                         }
                         context::setSessionAttribute("id",$id);
                         context::setSessionAttribute("connect","true");
-                        if(isset($request['redirect'])){
-                            echo '<script language="javascript" type="text/javascript">
-                            window.location.replace("goater.php?action='.$context->redirect.'&id=1");
-                          </script>';
-                        }
-                        else{
-                            echo '<script language="javascript" type="text/javascript">
-                            window.location.replace("goater.php");
-                          </script>';
-                        }
+                        echo '<script language="javascript" type="text/javascript">
+                        window.location.replace("goater.php");
+                      </script>';
                     }
                     else{
                         echo "<p class='goat-login-error'>Couple incorrect</p>";
